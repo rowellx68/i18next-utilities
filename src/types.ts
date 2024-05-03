@@ -41,7 +41,7 @@ export type I18NextTypedLoaderOptions = {
 
   /**
    * Output directory for the generated types.
-   * @default './types/i18next.d.ts'
+   * @default './src/types/i18next.d.ts'
    */
   output?: string
 }

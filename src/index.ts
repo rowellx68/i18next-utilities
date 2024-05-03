@@ -4,7 +4,7 @@ import YAML from 'yaml'
 import { flatten } from 'flat'
 import { merge } from 'ts-deepmerge'
 import { setProperty } from 'dot-prop'
-import { globSync } from 'fast-glob'
+import fast from 'fast-glob'
 import { createLogger, Plugin, Logger } from 'vite'
 import { I18NextTypedLoaderOptions, IncludePattern, ResourceBundle } from './types'
 
@@ -33,7 +33,7 @@ const findAllFiles = (globs: string | string[], cwd: string): string[] => {
   const globArray = Array.isArray(globs) ? globs : [globs]
 
   return globArray
-    .map((g) => globSync(g, { cwd }))
+    .map((g) => fast.globSync(g, { cwd }))
     .reduce((acc, val) => acc.concat(val), [])
 }
 
@@ -78,7 +78,6 @@ const loadContent = (options: I18NextTypedLoaderOptions, logger: Logger) => {
       const files = findAllFiles(uniqueIncludes, languageDirectory)
 
       for (const file of files) {
-        watchedFiles.push(file)
 
         const fullPath = path.resolve(directory, language, file)
         const extension = path.extname(file)
@@ -87,6 +86,8 @@ const loadContent = (options: I18NextTypedLoaderOptions, logger: Logger) => {
           logger.warn(`Unsupported file: ${file}`)
           continue
         }
+
+        watchedFiles.push(fullPath)
 
         const fileContent = fs.readFileSync(fullPath, 'utf8')
 
@@ -134,48 +135,57 @@ const generateTypeDefinition = (resource: ResourceBundle, options: I18NextTypedL
 
   const defaultNS = namespaces.find((ns) => ns === options.defaultNamespace || 'translation')
 
-  const defaultResourceKeys: string[] = []
-  const resourcesKeys: string[] = []
-
-  if (defaultNS) {
-    const flattened = flatten(resource[defaultNS]) as object
-    defaultResourceKeys.push(...Object.keys(flattened))
-  }
+  const resourcesKeys: Record<string, string[]> = {}
 
   for (const ns of namespaces) {
     const flattened = flatten(resource[ns]) as object
-    const keys = Object.keys(flattened).map((key) => `${ns}:${key}`)
-    resourcesKeys.push(...keys)
+    const keys = Object.keys(flattened)
+    resourcesKeys[ns] = keys
+
+    if (defaultNS) {
+      resourcesKeys[defaultNS] = [...resourcesKeys[defaultNS], ...keys.map((key) => `${ns}:${key}`)]
+    }
   }
 
   const definition = `import 'i18next'
 
-type GeneratedDefaultResource = {
-  ${defaultResourceKeys.map((key) => `'${key}': string`).join('\n')}
-}
-
-type GeneratedResources = {
-  ${resourcesKeys.map((key) => `'${key}': string`).join('\n')}
-}
-
-declare module 'i18next' {
-  interface CustomTypeOptions {
-    defaultNS: GeneratedDefaultResource
-    resources: GeneratedResources
+  type GeneratedResources = {
+    ${Object.keys(resourcesKeys).map((ns) => `'${ns}': {
+      ${resourcesKeys[ns].map((key) => `'${key}': string`).join('\n      ')}
+    }`).join('\n    ')}
   }
-}
+
+  declare module 'i18next' {
+    interface CustomTypeOptions {
+      defaultNS: '${defaultNS}'
+      resources: GeneratedResources
+    }
+  }
 `;
 
-    fs.writeFile(options.output || './types/i18next.d.ts', definition, 'utf-8', (err) => {});
+    fs.writeFile(options.output || './src/types/i18next.d.ts', definition, 'utf-8', (err) => {});
 }
 
 const factory = (options: I18NextTypedLoaderOptions): Plugin => {
+  let _watchedFiles: string[] = []
+  let _bundle: ResourceBundle = {}
+  let _defaultBundle: Record<string, ResourceBundle> = {}
+
   const logger = createLogger(options.logLevel ?? 'warn', { prefix: '[typed-i18next-loader]' })
 
   const plugin: Plugin = {
     name: 'vite-plugin-typed-i18next-loader',
     resolveId(id) {
       if (id === virtualModuleId) {
+        const { watchedFiles, bundle, defaultBundle } = loadContent(options, logger)
+        generateTypeDefinition(defaultBundle, options)
+        _watchedFiles = watchedFiles
+        _bundle = bundle
+        _defaultBundle = defaultBundle
+
+        logger.info(`Type definitions generated for default locale: ${options.defaultLocale || 'en'}`, { timestamp: true })
+        logger.info(`Definitions saved to: ${options.output || './src/types/i18next.d.ts'}`, { timestamp: true })
+
         return resolvedVirtualModuleId
       }
 
@@ -186,13 +196,22 @@ const factory = (options: I18NextTypedLoaderOptions): Plugin => {
         return null
       }
 
-      const { watchedFiles, bundle, defaultBundle } = loadContent(options, logger)
-      watchedFiles.forEach(this.addWatchFile)
+      _watchedFiles.forEach((file) => this.addWatchFile(file))
+
+      return `export default ${JSON.stringify(_bundle)}`
+    },
+    handleHotUpdate({ server, file, timestamp }) {
+      if (!_watchedFiles.includes(file)) {
+        return
+      }
+
+      const { bundle, defaultBundle, watchedFiles } = loadContent(options, logger)
       generateTypeDefinition(defaultBundle, options)
 
-      return `export default ${JSON.stringify(bundle)}`
-    },
-    handleHotUpdate({ server }) {
+      _bundle = bundle
+      _defaultBundle = defaultBundle
+      _watchedFiles = watchedFiles
+
       const module = server.moduleGraph.getModuleById(resolvedVirtualModuleId)
 
       if (module) {

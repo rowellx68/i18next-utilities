@@ -37,7 +37,7 @@ var import_yaml = __toESM(require("yaml"), 1);
 var import_flat = require("flat");
 var import_ts_deepmerge = require("ts-deepmerge");
 var import_dot_prop = require("dot-prop");
-var import_fast_glob = require("fast-glob");
+var import_fast_glob = __toESM(require("fast-glob"), 1);
 var import_vite = require("vite");
 const virtualModuleId = "virtual:i18next-typed-loader";
 const resolvedVirtualModuleId = "\0" + virtualModuleId;
@@ -56,7 +56,7 @@ const assertExistence = (paths) => {
 };
 const findAllFiles = (globs, cwd) => {
   const globArray = Array.isArray(globs) ? globs : [globs];
-  return globArray.map((g) => (0, import_fast_glob.globSync)(g, { cwd })).reduce((acc, val) => acc.concat(val), []);
+  return globArray.map((g) => import_fast_glob.default.globSync(g, { cwd })).reduce((acc, val) => acc.concat(val), []);
 };
 const enumerateLanguages = (directory) => import_node_fs.default.readdirSync(directory).filter((f) => import_node_fs.default.statSync(import_node_path.default.join(directory, f)).isDirectory());
 const resolvePaths = (paths, cwd) => paths.map((p) => import_node_path.default.isAbsolute(p) ? p : import_node_path.default.resolve(cwd, p));
@@ -84,13 +84,13 @@ const loadContent = (options, logger) => {
       const languageDirectory = import_node_path.default.join(directory, language);
       const files = findAllFiles(uniqueIncludes, languageDirectory);
       for (const file of files) {
-        watchedFiles.push(file);
         const fullPath = import_node_path.default.resolve(directory, language, file);
         const extension = import_node_path.default.extname(file);
         if (!allowedExtensions.includes(extension)) {
           logger.warn(`Unsupported file: ${file}`);
           continue;
         }
+        watchedFiles.push(fullPath);
         const fileContent = import_node_fs.default.readFileSync(fullPath, "utf8");
         const content = extension === ".json" ? JSON.parse(String(fileContent)) : import_yaml.default.parse(String(fileContent));
         if (options.namespaceResolution) {
@@ -119,43 +119,49 @@ const loadContent = (options, logger) => {
 const generateTypeDefinition = (resource, options) => {
   const namespaces = Object.keys(resource);
   const defaultNS = namespaces.find((ns) => ns === options.defaultNamespace || "translation");
-  const defaultResourceKeys = [];
-  const resourcesKeys = [];
-  if (defaultNS) {
-    const flattened = (0, import_flat.flatten)(resource[defaultNS]);
-    defaultResourceKeys.push(...Object.keys(flattened));
-  }
+  const resourcesKeys = {};
   for (const ns of namespaces) {
     const flattened = (0, import_flat.flatten)(resource[ns]);
-    const keys = Object.keys(flattened).map((key) => `${ns}:${key}`);
-    resourcesKeys.push(...keys);
+    const keys = Object.keys(flattened);
+    resourcesKeys[ns] = keys;
+    if (defaultNS) {
+      resourcesKeys[defaultNS] = [...resourcesKeys[defaultNS], ...keys.map((key) => `${ns}:${key}`)];
+    }
   }
   const definition = `import 'i18next'
 
-type GeneratedDefaultResource = {
-  ${defaultResourceKeys.map((key) => `'${key}': string`).join("\n")}
-}
-
-type GeneratedResources = {
-  ${resourcesKeys.map((key) => `'${key}': string`).join("\n")}
-}
-
-declare module 'i18next' {
-  interface CustomTypeOptions {
-    defaultNS: GeneratedDefaultResource
-    resources: GeneratedResources
+  type GeneratedResources = {
+    ${Object.keys(resourcesKeys).map((ns) => `'${ns}': {
+      ${resourcesKeys[ns].map((key) => `'${key}': string`).join("\n      ")}
+    }`).join("\n    ")}
   }
-}
+
+  declare module 'i18next' {
+    interface CustomTypeOptions {
+      defaultNS: '${defaultNS}'
+      resources: GeneratedResources
+    }
+  }
 `;
-  import_node_fs.default.writeFile(options.output || "./types/i18next.d.ts", definition, "utf-8", (err) => {
+  import_node_fs.default.writeFile(options.output || "./src/types/i18next.d.ts", definition, "utf-8", (err) => {
   });
 };
 const factory = (options) => {
+  let _watchedFiles = [];
+  let _bundle = {};
+  let _defaultBundle = {};
   const logger = (0, import_vite.createLogger)(options.logLevel ?? "warn", { prefix: "[typed-i18next-loader]" });
   const plugin = {
     name: "vite-plugin-typed-i18next-loader",
     resolveId(id) {
       if (id === virtualModuleId) {
+        const { watchedFiles, bundle, defaultBundle } = loadContent(options, logger);
+        generateTypeDefinition(defaultBundle, options);
+        _watchedFiles = watchedFiles;
+        _bundle = bundle;
+        _defaultBundle = defaultBundle;
+        logger.info(`Type definitions generated for default locale: ${options.defaultLocale || "en"}`, { timestamp: true });
+        logger.info(`Definitions saved to: ${options.output || "./src/types/i18next.d.ts"}`, { timestamp: true });
         return resolvedVirtualModuleId;
       }
       return null;
@@ -164,12 +170,18 @@ const factory = (options) => {
       if (id !== resolvedVirtualModuleId) {
         return null;
       }
-      const { watchedFiles, bundle, defaultBundle } = loadContent(options, logger);
-      watchedFiles.forEach(this.addWatchFile);
-      generateTypeDefinition(defaultBundle, options);
-      return `export default ${JSON.stringify(bundle)}`;
+      _watchedFiles.forEach((file) => this.addWatchFile(file));
+      return `export default ${JSON.stringify(_bundle)}`;
     },
-    handleHotUpdate({ server }) {
+    handleHotUpdate({ server, file, timestamp }) {
+      if (!_watchedFiles.includes(file)) {
+        return;
+      }
+      const { bundle, defaultBundle, watchedFiles } = loadContent(options, logger);
+      generateTypeDefinition(defaultBundle, options);
+      _bundle = bundle;
+      _defaultBundle = defaultBundle;
+      _watchedFiles = watchedFiles;
       const module2 = server.moduleGraph.getModuleById(resolvedVirtualModuleId);
       if (module2) {
         server.moduleGraph.invalidateModule(module2);
