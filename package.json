@@ -1,0 +1,30 @@
+{
+  "name": "vite-plugin-typed-i18next-loader",
+  "version": "0.0.0",
+  "description": "",
+  "main": "dist/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "Rowell Heria",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/node": "^20.12.8",
+    "dot-prop": "^8.0.2",
+    "fast-glob": "^3.3.2",
+    "i18next": "^23.11.3",
+    "ts-deepmerge": "^7.0.0",
+    "tsup": "^8.0.2",
+    "typescript": "^5.4.5",
+    "vite": "^5.2.10",
+    "yaml": "^2.4.2"
+  },
+  "peerDependencies": {
+    "i18next": "^23.11.3",
+    "vite": "^5.2.10"
+  },
+  "dependencies": {
+    "flat": "^6.0.1"
+  }
+}
