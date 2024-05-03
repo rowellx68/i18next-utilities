@@ -1,5 +1,4 @@
-import { LogLevel } from 'vite'
-import { createLogger } from 'vite'
+import type { LogLevel } from 'vite'
 
 export type IncludePattern = '**/*.json' | '**/*.yml' | '**/*.yaml'
 

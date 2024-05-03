@@ -3,9 +3,11 @@ import { defineConfig } from 'tsup'
 export default defineConfig({
   entry: ['src/index.ts'],
   dts: true,
-  minify: true,
+  minify: false,
   sourcemap: true,
   clean: true,
-  bundle: true,
-  format: ['cjs'],
+  shims: true,
+  bundle: false,
+  target: 'node14',
+  format: ['cjs', 'esm'],
 })
