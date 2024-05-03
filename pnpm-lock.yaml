@@ -8,25 +8,31 @@ importers:
 
   .:
     dependencies:
-      flat:
-        specifier: ^6.0.1
-        version: 6.0.1
-    devDependencies:
-      '@types/node':
-        specifier: ^20.12.8
-        version: 20.12.8
       dot-prop:
         specifier: ^8.0.2
         version: 8.0.2
       fast-glob:
         specifier: ^3.3.2
         version: 3.3.2
+      flat:
+        specifier: ^6.0.1
+        version: 6.0.1
       i18next:
         specifier: ^23.11.3
         version: 23.11.3
       ts-deepmerge:
         specifier: ^7.0.0
         version: 7.0.0
+      yaml:
+        specifier: ^2.4.2
+        version: 2.4.2
+    devDependencies:
+      '@types/node':
+        specifier: ^20.12.8
+        version: 20.12.8
+      prettier:
+        specifier: ^3.2.5
+        version: 3.2.5
       tsup:
         specifier: ^8.0.2
         version: 8.0.2(postcss@8.4.38)(typescript@5.4.5)
@@ -36,9 +42,6 @@ importers:
       vite:
         specifier: ^5.2.10
         version: 5.2.10(@types/node@20.12.8)
-      yaml:
-        specifier: ^2.4.2
-        version: 2.4.2
 
 packages:
 
@@ -750,6 +753,11 @@ packages:
   postcss@8.4.38:
     resolution: {integrity: sha512-Wglpdk03BSfXkHoQa3b/oulrotAkwrlLDRSOb9D0bN86FdRyE9lppSp33aHNPgBa0JKCoB+drFLZkQoRRYae5A==}
     engines: {node: ^10 || ^12 || >=14}
+
+  prettier@3.2.5:
+    resolution: {integrity: sha512-3/GWa9aOC0YeD7LUfvOG2NiDyhOWRvt1k+rcKhOuYnMY24iiCphgneUfJDyFXd6rZCAnuLBv6UeAULtrhT/F4A==}
+    engines: {node: '>=14'}
+    hasBin: true
 
   punycode@2.3.1:
     resolution: {integrity: sha512-vYt7UD1U9Wg6138shLtLOvdAu+8DsC/ilFtEVHcH+wydcSpNE20AfSOduf6MkRFahL5FY7X1oU7nKVZFtfq8Fg==}
@@ -1485,6 +1493,8 @@ snapshots:
       nanoid: 3.3.7
       picocolors: 1.0.0
       source-map-js: 1.2.0
+
+  prettier@3.2.5: {}
 
   punycode@2.3.1: {}
 
