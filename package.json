@@ -1,14 +1,16 @@
 {
   "name": "vite-plugin-typed-i18next-loader",
   "version": "0.0.8",
-  "description": "",
+  "description": "Generate type definitions for i18next resources",
   "main": "dist/index.cjs",
   "module": "dist/index.js",
   "types": "dist/index.d.ts",
   "type": "module",
   "scripts": {
     "build": "tsup-node",
-    "dev": "tsup --watch"
+    "dev": "tsup --watch",
+    "test": "vitest run",
+    "format": "prettier --write ."
   },
   "exports": {
     ".": {
@@ -20,7 +22,13 @@
   "files": [
     "dist"
   ],
-  "keywords": [],
+  "keywords": [
+    "vite",
+    "vite-plugin",
+    "i18next",
+    "typescript",
+    "loader"
+  ],
   "author": "Rowell Heria",
   "license": "MIT",
   "devDependencies": {
