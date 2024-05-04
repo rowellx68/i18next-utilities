@@ -6,7 +6,6 @@ export default defineConfig({
   minify: false,
   sourcemap: true,
   clean: true,
-  shims: true,
   bundle: false,
   target: 'node14',
   format: ['cjs', 'esm'],

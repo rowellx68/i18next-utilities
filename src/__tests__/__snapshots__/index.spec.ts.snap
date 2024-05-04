@@ -1,0 +1,7 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`vite-plugin-typed-i18next-loader > should generate type definitions for default locale 1`] = `
+"const e = { en: { namespace: { message: "Hello, World!" }, translation: { "app.title": "Hello World" } }, "en-GB": { namespace: { message: "Hello, World!", other: "This is a test" }, translation: { "app.title": "Hello World" } } };
+console.log(e);
+"
+`;
