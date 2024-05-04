@@ -1,5 +1,7 @@
 # Changelog
 
+## [1.0.0](https://github.com/rowellx68/vite-plugin-typed-i18next-loader/compare/0.1.0...1.0.0) (2024-05-04)
+
 ## 0.1.0 (2024-05-04)
 
 
