@@ -155,10 +155,6 @@ const generateTypeDefinition = (
 
 import 'i18next'
 
-type FlatGeneratedResource<TResource, TNamespace extends keyof TResource> = {
-  [SubProperty in keyof TResource[TNamespace] as \`\${string & TNamespace}:\${string & SubProperty}\`]: TResource[TNamespace][SubProperty]
-};
-
 type GeneratedResources = {
   ${Object.keys(resourcesKeys)
     .map(
@@ -169,10 +165,16 @@ type GeneratedResources = {
     .join('\n  ')}
 }
 
+type FlatGeneratedResources = {
+  [Namespace in keyof GeneratedResources]: GeneratedResources[Namespace] extends object
+    ? { [Property in keyof GeneratedResources[Namespace] as \`\${Namespace & string}:\${Property & string}\`]: GeneratedResources[Namespace][Property] }
+    : { [Property in Namespace & string]: GeneratedResources[Namespace] }
+}[keyof GeneratedResources];
+
 declare module 'i18next' {
   interface CustomTypeOptions {
     defaultNS: '${defaultNS}'
-    resources: GeneratedResources${namespaces.map((ns) => `\n      & { '${defaultNS}': FlatGeneratedResource<GeneratedResources, '${ns}'> }`).join('')}
+    resources: GeneratedResources & { '${defaultNS}': FlatGeneratedResources }
   }
 }
 `;
@@ -192,7 +194,6 @@ declare module 'i18next' {
 const factory = (options: I18NextTypedLoaderOptions): Plugin => {
   let _watchedFiles: string[] = [];
   let _bundle: ResourceBundle = {};
-  let _defaultBundle: Record<string, ResourceBundle> = {};
 
   const logger = createLogger(options.logLevel ?? 'warn', {
     prefix: '[typed-i18next-loader]',
@@ -209,7 +210,6 @@ const factory = (options: I18NextTypedLoaderOptions): Plugin => {
         generateTypeDefinition(defaultBundle, options);
         _watchedFiles = watchedFiles;
         _bundle = bundle;
-        _defaultBundle = defaultBundle;
 
         logger.info(
           `Type definitions generated for default locale: ${options.defaultLocale || 'en'}`,
@@ -246,7 +246,6 @@ const factory = (options: I18NextTypedLoaderOptions): Plugin => {
       generateTypeDefinition(defaultBundle, options);
 
       _bundle = bundle;
-      _defaultBundle = defaultBundle;
       _watchedFiles = watchedFiles;
 
       const module = server.moduleGraph.getModuleById(resolvedVirtualModuleId);

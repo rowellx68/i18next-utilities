@@ -2,10 +2,6 @@
 
 import 'i18next'
 
-type FlatGeneratedResource<TResource, TNamespace extends keyof TResource> = {
-  [SubProperty in keyof TResource[TNamespace] as `${string & TNamespace}:${string & SubProperty}`]: TResource[TNamespace][SubProperty]
-};
-
 type GeneratedResources = {
   'namespace': {
     'message': string
@@ -16,11 +12,15 @@ type GeneratedResources = {
   }
 }
 
+type FlatGeneratedResources = {
+  [Namespace in keyof GeneratedResources]: GeneratedResources[Namespace] extends object
+    ? { [Property in keyof GeneratedResources[Namespace] as `${Namespace & string}:${Property & string}`]: GeneratedResources[Namespace][Property] }
+    : { [Property in Namespace & string]: GeneratedResources[Namespace] }
+}[keyof GeneratedResources];
+
 declare module 'i18next' {
   interface CustomTypeOptions {
     defaultNS: 'translation'
-    resources: GeneratedResources
-      & { 'translation': FlatGeneratedResource<GeneratedResources, 'namespace'> }
-      & { 'translation': FlatGeneratedResource<GeneratedResources, 'translation'> }
+    resources: GeneratedResources & { 'translation': FlatGeneratedResources }
   }
 }
