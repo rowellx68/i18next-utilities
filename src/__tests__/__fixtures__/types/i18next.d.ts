@@ -24,3 +24,12 @@ declare module 'i18next' {
     resources: GeneratedResources & { 'translation': FlatGeneratedResources }
   }
 }
+
+type VirtualTypedLoader = {
+  'en': GeneratedResources
+  'en-GB': GeneratedResources
+}
+
+declare module 'virtual:i18next-typed-loader' {
+  export default VirtualTypedLoader
+}

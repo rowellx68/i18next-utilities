@@ -137,6 +137,7 @@ const loadContent = (options: I18NextTypedLoaderOptions, logger: Logger) => {
 
 const generateTypeDefinition = (
   resource: ResourceBundle,
+  languages: string[],
   options: I18NextTypedLoaderOptions,
 ) => {
   const namespaces = Object.keys(resource);
@@ -177,6 +178,14 @@ declare module 'i18next' {
     resources: GeneratedResources & { '${defaultNS}': FlatGeneratedResources }
   }
 }
+
+type VirtualTypedLoader = {
+  ${languages.map((lang) => `'${lang}': GeneratedResources`).join('\n  ')}
+}
+
+declare module 'virtual:i18next-typed-loader' {
+  export default VirtualTypedLoader
+}
 `;
 
   fs.writeFile(
@@ -193,6 +202,7 @@ declare module 'i18next' {
 
 const factory = (options: I18NextTypedLoaderOptions): Plugin => {
   let _watchedFiles: string[] = [];
+  let _languages: string[] = [];
   let _bundle: ResourceBundle = {};
 
   const logger = createLogger(options.logLevel ?? 'warn', {
@@ -207,9 +217,12 @@ const factory = (options: I18NextTypedLoaderOptions): Plugin => {
           options,
           logger,
         );
-        generateTypeDefinition(defaultBundle, options);
+
         _watchedFiles = watchedFiles;
         _bundle = bundle;
+        _languages = Object.keys(bundle);
+
+        generateTypeDefinition(defaultBundle, _languages, options);
 
         logger.info(
           `Type definitions generated for default locale: ${options.defaultLocale || 'en'}`,
@@ -234,7 +247,7 @@ const factory = (options: I18NextTypedLoaderOptions): Plugin => {
 
       return `export default ${JSON.stringify(_bundle)}`;
     },
-    handleHotUpdate({ server, file, timestamp }) {
+    handleHotUpdate({ server, file }) {
       if (!_watchedFiles.includes(file)) {
         return;
       }
@@ -243,10 +256,12 @@ const factory = (options: I18NextTypedLoaderOptions): Plugin => {
         options,
         logger,
       );
-      generateTypeDefinition(defaultBundle, options);
 
-      _bundle = bundle;
       _watchedFiles = watchedFiles;
+      _bundle = bundle;
+      _languages = Object.keys(bundle);
+
+      generateTypeDefinition(defaultBundle, _languages, options);
 
       const module = server.moduleGraph.getModuleById(resolvedVirtualModuleId);
 
