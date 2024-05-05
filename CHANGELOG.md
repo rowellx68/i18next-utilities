@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.0](https://github.com/rowellx68/vite-plugin-typed-i18next-loader/compare/1.1.1...1.2.0) (2024-05-05)
+
+
+### Features
+
+* declare typed virtual module ([6e77a3f](https://github.com/rowellx68/vite-plugin-typed-i18next-loader/commit/6e77a3fc93f153142389de0f0672ff4431680a66))
+
 ## [1.1.1](https://github.com/rowellx68/vite-plugin-typed-i18next-loader/compare/1.1.0...1.1.1) (2024-05-05)
 
 ## [1.1.0](https://github.com/rowellx68/vite-plugin-typed-i18next-loader/compare/1.0.0...1.1.0) (2024-05-05)
