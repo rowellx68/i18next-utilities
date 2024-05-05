@@ -12,24 +12,15 @@ type GeneratedResources = {
   }
 }
 
-type FlatGeneratedResources = {
-  [Namespace in keyof GeneratedResources]: GeneratedResources[Namespace] extends object
-    ? { [Property in keyof GeneratedResources[Namespace] as `${Namespace & string}:${Property & string}`]: GeneratedResources[Namespace][Property] }
-    : { [Property in Namespace & string]: GeneratedResources[Namespace] }
-}[keyof GeneratedResources];
+type FlatGeneratedResources<TResource, NS extends keyof TResource> = {
+  [Property in keyof TResource[NS] as `${NS & string}:${Property & string}`]: TResource[NS][Property]
+}
 
 declare module 'i18next' {
   interface CustomTypeOptions {
     defaultNS: 'translation'
-    resources: GeneratedResources & { 'translation': FlatGeneratedResources }
+    resources: GeneratedResources
+      & { 'translation': FlatGeneratedResources<GeneratedResources, 'namespace'> }
+      & { 'translation': FlatGeneratedResources<GeneratedResources, 'translation'> }
   }
-}
-
-type VirtualTypedLoader = {
-  'en': GeneratedResources
-  'en-GB': GeneratedResources
-}
-
-declare module 'virtual:i18next-typed-loader' {
-  export default VirtualTypedLoader
 }
