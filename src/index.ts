@@ -137,7 +137,6 @@ const loadContent = (options: I18NextTypedLoaderOptions, logger: Logger) => {
 
 const generateTypeDefinition = (
   resource: ResourceBundle,
-  languages: string[],
   options: I18NextTypedLoaderOptions,
 ) => {
   const namespaces = Object.keys(resource);
@@ -174,10 +173,12 @@ declare module 'i18next' {
   interface CustomTypeOptions {
     defaultNS: '${defaultNS}'
     resources: GeneratedResources
-      ${namespaces.map(
-        (ns) =>
-          `& { '${defaultNS}': FlatGeneratedResources<GeneratedResources, '${ns}'> }`,
-      ).join('\n      ')}
+      ${namespaces
+        .map(
+          (ns) =>
+            `& { '${defaultNS}': FlatGeneratedResources<GeneratedResources, '${ns}'> }`,
+        )
+        .join('\n      ')}
   }
 }
 `;
@@ -196,7 +197,6 @@ declare module 'i18next' {
 
 const factory = (options: I18NextTypedLoaderOptions): Plugin => {
   let _watchedFiles: string[] = [];
-  let _languages: string[] = [];
   let _bundle: ResourceBundle = {};
 
   const logger = createLogger(options.logLevel ?? 'warn', {
@@ -214,9 +214,8 @@ const factory = (options: I18NextTypedLoaderOptions): Plugin => {
 
         _watchedFiles = watchedFiles;
         _bundle = bundle;
-        _languages = Object.keys(bundle);
 
-        generateTypeDefinition(defaultBundle, _languages, options);
+        generateTypeDefinition(defaultBundle, options);
 
         logger.info(
           `Type definitions generated for default locale: ${options.defaultLocale || 'en'}`,
@@ -253,9 +252,8 @@ const factory = (options: I18NextTypedLoaderOptions): Plugin => {
 
       _watchedFiles = watchedFiles;
       _bundle = bundle;
-      _languages = Object.keys(bundle);
 
-      generateTypeDefinition(defaultBundle, _languages, options);
+      generateTypeDefinition(defaultBundle, options);
 
       const module = server.moduleGraph.getModuleById(resolvedVirtualModuleId);
 
