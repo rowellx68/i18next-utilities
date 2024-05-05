@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.1](https://github.com/rowellx68/vite-plugin-typed-i18next-loader/compare/1.2.0...1.2.1) (2024-05-05)
+
+
+### Bug Fixes
+
+* revert type definition generation ([0a94499](https://github.com/rowellx68/vite-plugin-typed-i18next-loader/commit/0a94499a61ebb3538ab94e0ea1f346530a81db34))
+
 ## [1.2.0](https://github.com/rowellx68/vite-plugin-typed-i18next-loader/compare/1.1.1...1.2.0) (2024-05-05)
 
 
