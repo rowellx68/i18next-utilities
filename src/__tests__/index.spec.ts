@@ -16,7 +16,7 @@ describe('vite-plugin-typed-i18next-loader', () => {
         plugin({
           namespaceResolution: 'basename',
           defaultLocale: 'en-GB',
-          output: './src/__tests__/__fixtures__/types/i18next.d.ts',
+          dtsOutputFile: './src/__tests__/__fixtures__/types/i18next.d.ts',
           paths: ['./src/__tests__/__fixtures__/locales/'],
         }),
       ],

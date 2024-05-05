@@ -178,7 +178,7 @@ declare module 'i18next' {
 `;
 
   fs.writeFile(
-    options.output || './src/types/i18next.d.ts',
+    options.dtsOutputFile || './src/types/i18next.d.ts',
     definition,
     'utf-8',
     (err) => {
@@ -216,7 +216,7 @@ const factory = (options: I18NextTypedLoaderOptions): Plugin => {
           { timestamp: true },
         );
         logger.info(
-          `Definitions saved to: ${options.output || './src/types/i18next.d.ts'}`,
+          `Definitions saved to: ${options.dtsOutputFile || './src/types/i18next.d.ts'}`,
           { timestamp: true },
         );
 

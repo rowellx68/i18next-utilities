@@ -28,7 +28,7 @@ yarn add -D vite-plugin-typed-i18next-loader
 | `defaultNamespace`    | `string`                                       | `'translation'`                          | The default i18next namespace the plugin will use.         |
 | `include`             | `('**/*.json' \| '**/*.yml' \| '**/*.yaml')[]` | `['**/*.json', '**/*.yml', '**/*.yaml']` | Glob patterns of files to include for bundling.            |
 | `namespaceResolution` | `basename`, `relativePath`                     | none                                     | Namespace resolution strategy.                             |
-| `output`              | `string`                                       | `'./src/types/i18next.d.ts'`             | Output file name and path.                                 |
+| `dtsOutputFile`       | `string`                                       | `'./src/types/i18next.d.ts'`             | Output file name and path.                                 |
 | `paths`               | `string[]`                                     | `[]`                                     | Locale top-level directory paths.                          |
 
 ## Usage with Vite
@@ -44,7 +44,7 @@ export default defineConfig({
       defaultNamespace: 'translation',
       include: ['**/locales/**/*.json'],
       namespaceResolution: 'basename',
-      output: './src/types/i18next.d.ts',
+      dtsOutputFile: './src/types/i18next.d.ts',
     }),
   ],
 });

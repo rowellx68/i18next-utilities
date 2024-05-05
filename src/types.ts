@@ -40,8 +40,8 @@ export type I18NextTypedLoaderOptions = {
   paths: string[];
 
   /**
-   * Output directory for the generated types.
+   * Output file destination for the generated types.
    * @default './src/types/i18next.d.ts'
    */
-  output?: string;
+  dtsOutputFile?: string;
 };
