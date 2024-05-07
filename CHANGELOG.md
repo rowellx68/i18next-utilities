@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.4.1](https://github.com/rowellx68/vite-plugin-typed-i18next-loader/compare/1.4.0...1.4.1) (2024-05-07)
+
+
+### Bug Fixes
+
+* add missing ordinal suffixes ([c9c6556](https://github.com/rowellx68/vite-plugin-typed-i18next-loader/commit/c9c655663f37cc7c1b033af8acd807c401b0aab3))
+
 ## [1.4.0](https://github.com/rowellx68/vite-plugin-typed-i18next-loader/compare/1.3.0...1.4.0) (2024-05-07)
 
 
