@@ -28,9 +28,11 @@ const allowedExtensions = ['.json', '.yml', '.yaml'];
 
 const pluralSuffixes = ['_zero', '_one', '_two', '_few', '_many', '_other'];
 const ordinalSuffixes = [
+  '_ordinal_zero',
   '_ordinal_one',
   '_ordinal_two',
   '_ordinal_few',
+  '_ordinal_many',
   '_ordinal_other',
 ];
 
