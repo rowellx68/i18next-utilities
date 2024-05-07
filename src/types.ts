@@ -4,6 +4,16 @@ export type IncludePattern = '**/*.json' | '**/*.yml' | '**/*.yaml';
 
 export type ResourceBundle = { [key: string]: string | object };
 
+export type I18NextTypedDtsOptions = {
+  expand: {
+    arrays: boolean;
+
+    ordinals: boolean;
+
+    plurals: boolean;
+  };
+};
+
 export type I18NextTypedLoaderOptions = {
   /**
    * Log level.
@@ -44,4 +54,13 @@ export type I18NextTypedLoaderOptions = {
    * @default './src/types/i18next.d.ts'
    */
   dtsOutputFile?: string;
+
+  /**
+   * Options for generating the type definitions.
+   *
+   * When set to `true`, the arrays/ordinals/plurals will be expanded.
+   *
+   * @default { expand: { arrays: false, ordinals: false, plurals: false } }
+   */
+  dts?: I18NextTypedDtsOptions;
 };

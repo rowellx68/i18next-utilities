@@ -22,14 +22,15 @@ yarn add -D vite-plugin-typed-i18next-loader
 
 ## Options
 
-| Name                  | Type                                           | Default                                  | Description                                                |
-| --------------------- | ---------------------------------------------- | ---------------------------------------- | ---------------------------------------------------------- |
-| `defaultLocale`       | `string`                                       | `'en'`                                   | The default locale the plugin will generate the type from. |
-| `defaultNamespace`    | `string`                                       | `'translation'`                          | The default i18next namespace the plugin will use.         |
-| `include`             | `('**/*.json' \| '**/*.yml' \| '**/*.yaml')[]` | `['**/*.json', '**/*.yml', '**/*.yaml']` | Glob patterns of files to include for bundling.            |
-| `namespaceResolution` | `basename`, `relativePath`                     | none                                     | Namespace resolution strategy.                             |
-| `dtsOutputFile`       | `string`                                       | `'./src/types/i18next.d.ts'`             | Output file name and path.                                 |
-| `paths`               | `string[]`                                     | `[]`                                     | Locale top-level directory paths.                          |
+| Name                  | Type                                                                   | Default                                                          | Description                                                |
+| --------------------- | ---------------------------------------------------------------------- | ---------------------------------------------------------------- | ---------------------------------------------------------- |
+| `defaultLocale`       | `string`                                                               | `'en'`                                                           | The default locale the plugin will generate the type from. |
+| `defaultNamespace`    | `string`                                                               | `'translation'`                                                  | The default i18next namespace the plugin will use.         |
+| `include`             | `('**/*.json' \| '**/*.yml' \| '**/*.yaml')[]`                         | `['**/*.json', '**/*.yml', '**/*.yaml']`                         | Glob patterns of files to include for bundling.            |
+| `namespaceResolution` | `basename`, `relativePath`                                             | none                                                             | Namespace resolution strategy.                             |
+| `dtsOutputFile`       | `string`                                                               | `'./src/types/i18next.d.ts'`                                     | Output file name and path.                                 |
+| `paths`               | `string[]`                                                             | `[]`                                                             | Locale top-level directory paths.                          |
+| `dts`                 | `{ expand: { arrays: boolean, ordinals: boolean, plurals: boolean } }` | `{ expand: { arrays: false, ordinals: false, plurals: false } }` | DTS generation options.                                    |
 
 ## Usage with Vite
 
@@ -61,6 +62,54 @@ i18n.init({
   resources: resources,
   ns: ['translation'],
 });
+```
+
+## Example
+
+```json
+// locales/en/translation.json
+{
+  "application": {
+    "title": "My Application",
+    "description": "This is my application"
+  },
+  "common": {
+    "items_zero": "No items",
+    "items_one": "{{count}} item",
+    "items_other": "{{count}} items",
+    "rank_one": "{{count}}st",
+    "rank_two": "{{count}}nd",
+    "rank_few": "{{count}}rd",
+    "rank_other": "{{count}}th"
+  }
+}
+```
+
+```ts
+// src/types/i18next.d.ts
+import 'i18next';
+
+type GeneratedResource = {
+  translation: {
+    'application.title': string;
+    'application.description': string;
+    'common.items': string;
+    'common.rank': string;
+  };
+};
+
+type FlatGeneratedResources<TResource, NS extends keyof TResource> = {
+  [Property in keyof TResource[NS] as `${NS & string}:${Property & string}`]: TResource[NS][Property];
+};
+
+declare module 'i18next' {
+  interface CustomTypeOptions {
+    defaultNS: 'translation';
+    resources: GeneratedResources & {
+      translation: FlatGeneratedResources<GeneratedResources, 'translation'>;
+    };
+  }
+}
 ```
 
 ## LICENSE

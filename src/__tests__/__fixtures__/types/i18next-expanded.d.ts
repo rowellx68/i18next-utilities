@@ -9,9 +9,18 @@ type GeneratedResources = {
   }
   'translation': {
     'app.title': string
-    'app.message': string
+    'app.message.0': string
+    'app.message.1': string
+    'app.pages_zero': string
+    'app.pages_one': string
+    'app.pages_other': string
+    'app.rank_ordinal_one': string
+    'app.rank_ordinal_two': string
+    'app.rank_ordinal_few': string
+    'app.rank_ordinal_other': string
     'app.rank': string
     'app.pages': string
+    'app.message': string
   }
 }
 
