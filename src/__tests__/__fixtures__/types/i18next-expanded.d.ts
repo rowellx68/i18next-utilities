@@ -4,23 +4,32 @@ import 'i18next'
 
 type GeneratedResources = {
   'namespace': {
+    'friend': string
+    'friend_female': string
+    'friend_female_one': string
+    'friend_female_other': string
+    'friend_female_zero': string
+    'friend_male': string
+    'friend_male_one': string
+    'friend_male_other': string
+    'friend_male_zero': string
     'message': string
     'other': string
   }
   'translation': {
-    'app.title': string
+    'app.message': string
     'app.message.0': string
     'app.message.1': string
-    'app.pages_zero': string
+    'app.pages': string
     'app.pages_one': string
     'app.pages_other': string
-    'app.rank_ordinal_one': string
-    'app.rank_ordinal_two': string
-    'app.rank_ordinal_few': string
-    'app.rank_ordinal_other': string
+    'app.pages_zero': string
     'app.rank': string
-    'app.pages': string
-    'app.message': string
+    'app.rank_ordinal_few': string
+    'app.rank_ordinal_one': string
+    'app.rank_ordinal_other': string
+    'app.rank_ordinal_two': string
+    'app.title': string
   }
 }
 

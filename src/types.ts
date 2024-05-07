@@ -7,9 +7,8 @@ export type ResourceBundle = { [key: string]: string | object };
 export type I18NextTypedDtsOptions = {
   expand: {
     arrays: boolean;
-
+    contexts: boolean;
     ordinals: boolean;
-
     plurals: boolean;
   };
 };

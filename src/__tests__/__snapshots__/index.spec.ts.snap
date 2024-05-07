@@ -1,8 +1,8 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
 exports[`vite-plugin-typed-i18next-loader > should generate type definitions for default locale 1`] = `
-"const a = { en: { namespace: { message: "Hello, World!" }, translation: { "app.title": "Hello World" } }, "en-GB": { namespace: { message: "Hello, World!", other: "This is a test" }, translation: { "app.title": "Hello World", "app.message": ["Hello", "world"], "app.pages_zero": "No pages", "app.pages_one": "{{pages}} page", "app.pages_other": "{{pages}} pages", "app.rank_ordinal_one": "{{rank}}st", "app.rank_ordinal_two": "{{rank}}nd", "app.rank_ordinal_few": "{{rank}}rd", "app.rank_ordinal_other": "{{rank}}th" } } };
-console.log(a);
+"const e = { en: { namespace: { message: "Hello, World!" }, translation: { "app.title": "Hello World" } }, "en-GB": { namespace: { message: "Hello, World!", other: "This is a test", friend_female: "A female friend", friend_male: "A male friend", friend_female_zero: "No female friends", friend_female_one: "{{count}} female friend", friend_female_other: "{{count}} female friends", friend_male_zero: "No male friends", friend_male_one: "{{count}} male friend", friend_male_other: "{{count}} male friends" }, translation: { "app.title": "Hello World", "app.message": ["Hello", "world"], "app.pages_zero": "No pages", "app.pages_one": "{{pages}} page", "app.pages_other": "{{pages}} pages", "app.rank_ordinal_one": "{{rank}}st", "app.rank_ordinal_two": "{{rank}}nd", "app.rank_ordinal_few": "{{rank}}rd", "app.rank_ordinal_other": "{{rank}}th" } } };
+console.log(e);
 "
 `;
 
@@ -13,14 +13,15 @@ import 'i18next'
 
 type GeneratedResources = {
   'namespace': {
+    'friend': string
     'message': string
     'other': string
   }
   'translation': {
-    'app.title': string
     'app.message': string
-    'app.rank': string
     'app.pages': string
+    'app.rank': string
+    'app.title': string
   }
 }
 
@@ -40,8 +41,8 @@ declare module 'i18next' {
 `;
 
 exports[`vite-plugin-typed-i18next-loader > should generate type definitions with expanded dts 1`] = `
-"const a = { en: { namespace: { message: "Hello, World!" }, translation: { "app.title": "Hello World" } }, "en-GB": { namespace: { message: "Hello, World!", other: "This is a test" }, translation: { "app.title": "Hello World", "app.message": ["Hello", "world"], "app.pages_zero": "No pages", "app.pages_one": "{{pages}} page", "app.pages_other": "{{pages}} pages", "app.rank_ordinal_one": "{{rank}}st", "app.rank_ordinal_two": "{{rank}}nd", "app.rank_ordinal_few": "{{rank}}rd", "app.rank_ordinal_other": "{{rank}}th" } } };
-console.log(a);
+"const e = { en: { namespace: { message: "Hello, World!" }, translation: { "app.title": "Hello World" } }, "en-GB": { namespace: { message: "Hello, World!", other: "This is a test", friend_female: "A female friend", friend_male: "A male friend", friend_female_zero: "No female friends", friend_female_one: "{{count}} female friend", friend_female_other: "{{count}} female friends", friend_male_zero: "No male friends", friend_male_one: "{{count}} male friend", friend_male_other: "{{count}} male friends" }, translation: { "app.title": "Hello World", "app.message": ["Hello", "world"], "app.pages_zero": "No pages", "app.pages_one": "{{pages}} page", "app.pages_other": "{{pages}} pages", "app.rank_ordinal_one": "{{rank}}st", "app.rank_ordinal_two": "{{rank}}nd", "app.rank_ordinal_few": "{{rank}}rd", "app.rank_ordinal_other": "{{rank}}th" } } };
+console.log(e);
 "
 `;
 
@@ -52,23 +53,32 @@ import 'i18next'
 
 type GeneratedResources = {
   'namespace': {
+    'friend': string
+    'friend_female': string
+    'friend_female_one': string
+    'friend_female_other': string
+    'friend_female_zero': string
+    'friend_male': string
+    'friend_male_one': string
+    'friend_male_other': string
+    'friend_male_zero': string
     'message': string
     'other': string
   }
   'translation': {
-    'app.title': string
+    'app.message': string
     'app.message.0': string
     'app.message.1': string
-    'app.pages_zero': string
+    'app.pages': string
     'app.pages_one': string
     'app.pages_other': string
-    'app.rank_ordinal_one': string
-    'app.rank_ordinal_two': string
-    'app.rank_ordinal_few': string
-    'app.rank_ordinal_other': string
+    'app.pages_zero': string
     'app.rank': string
-    'app.pages': string
-    'app.message': string
+    'app.rank_ordinal_few': string
+    'app.rank_ordinal_one': string
+    'app.rank_ordinal_other': string
+    'app.rank_ordinal_two': string
+    'app.title': string
   }
 }
 

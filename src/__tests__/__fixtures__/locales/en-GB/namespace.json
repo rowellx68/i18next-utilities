@@ -1,4 +1,12 @@
 {
   "message": "Hello, World!",
-  "other": "This is a test"
+  "other": "This is a test",
+  "friend_female": "A female friend",
+  "friend_male": "A male friend",
+  "friend_female_zero": "No female friends",
+  "friend_female_one": "{{count}} female friend",
+  "friend_female_other": "{{count}} female friends",
+  "friend_male_zero": "No male friends",
+  "friend_male_one": "{{count}} male friend",
+  "friend_male_other": "{{count}} male friends"
 }

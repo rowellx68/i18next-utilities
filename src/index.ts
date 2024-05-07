@@ -154,9 +154,10 @@ const generateResourceTypeDefinition = (
   const dtsOptions: I18NextTypedDtsOptions = Object.assign(
     {
       expand: {
-        arrays: false,
-        ordinals: false,
-        plurals: false,
+        arrays: true,
+        contexts: true,
+        ordinals: true,
+        plurals: true,
       },
     },
     options.dts || {},
@@ -181,6 +182,7 @@ const generateResourceTypeDefinition = (
           dtsOptions.expand.plurals ||
           !pluralSuffixes.some((s) => k.endsWith(s)),
       )
+      .filter((k) => dtsOptions.expand.contexts || !k.includes('_'))
       .filter((k) => dtsOptions.expand.arrays || !k.match(/\.\d+$/));
 
     const keysWithOrdinals = allKeys
@@ -196,11 +198,19 @@ const generateResourceTypeDefinition = (
       .filter((k) => k.match(/\.\d+$/))
       .map((k) => k.replace(/\.\d+$/, ''));
 
-    const keys = keysWithoutPluralsArrays.concat(
-      keysWithOrdinals,
-      keysWithPlurals,
-      keysWithArrays,
-    );
+    const keysWithContexts = allKeys
+      .filter((k) => k.includes('_'))
+      .map((k) => k.replace(/_.*$/, ''));
+
+    const keys = keysWithoutPluralsArrays
+      .concat(
+        keysWithOrdinals,
+        keysWithPlurals,
+        keysWithArrays,
+        keysWithContexts,
+      )
+      .filter((k) => dtsOptions.expand.contexts || !k.includes('_'))
+      .sort((a, b) => a.localeCompare(b, undefined, { numeric: true }));
 
     flatResources[ns] = Array.from(new Set(keys));
   }

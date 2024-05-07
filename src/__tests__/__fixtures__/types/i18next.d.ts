@@ -4,14 +4,15 @@ import 'i18next'
 
 type GeneratedResources = {
   'namespace': {
+    'friend': string
     'message': string
     'other': string
   }
   'translation': {
-    'app.title': string
     'app.message': string
-    'app.rank': string
     'app.pages': string
+    'app.rank': string
+    'app.title': string
   }
 }
 
