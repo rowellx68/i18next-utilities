@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.4.0](https://github.com/rowellx68/vite-plugin-typed-i18next-loader/compare/1.3.0...1.4.0) (2024-05-07)
+
+
+### Features
+
+* add option to expand contexts ([0034572](https://github.com/rowellx68/vite-plugin-typed-i18next-loader/commit/00345722ed7294cf65d1153f47da73d4b016a607))
+
 ## [1.3.0](https://github.com/rowellx68/vite-plugin-typed-i18next-loader/compare/1.2.1...1.3.0) (2024-05-07)
 
 
