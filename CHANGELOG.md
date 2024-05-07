@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.3.0](https://github.com/rowellx68/vite-plugin-typed-i18next-loader/compare/1.2.1...1.3.0) (2024-05-07)
+
+
+### Features
+
+* add option to expand arrays, ordinals, plurals ([6b985bd](https://github.com/rowellx68/vite-plugin-typed-i18next-loader/commit/6b985bd327858f97566cb6abeaeef74ed110a380))
+
 ## [1.2.1](https://github.com/rowellx68/vite-plugin-typed-i18next-loader/compare/1.2.0...1.2.1) (2024-05-05)
 
 
