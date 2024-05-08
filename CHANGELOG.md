@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.5.0](https://github.com/rowellx68/vite-plugin-typed-i18next-loader/compare/1.4.1...1.5.0) (2024-05-08)
+
+
+### Features
+
+* add type generation for virtual module ([99e3352](https://github.com/rowellx68/vite-plugin-typed-i18next-loader/commit/99e335226c1d04e613ef43843c06c9704a1d2651))
+
 ## [1.4.1](https://github.com/rowellx68/vite-plugin-typed-i18next-loader/compare/1.4.0...1.4.1) (2024-05-07)
 
 
