@@ -43,7 +43,7 @@ export default defineConfig({
     i18nextPlugin({
       defaultLocale: 'en-GB',
       defaultNamespace: 'translation',
-      include: ['**/locales/**/*.json'],
+      paths: ['./src/locales/'],
       namespaceResolution: 'basename',
       dtsOutputFile: './src/types/i18next.d.ts',
     }),
