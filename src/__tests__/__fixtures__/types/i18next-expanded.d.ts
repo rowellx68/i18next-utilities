@@ -39,9 +39,9 @@ type FlatGeneratedResources<TResource, NS extends keyof TResource> = {
 
 declare module 'i18next' {
   interface CustomTypeOptions {
-    defaultNS: 'translation'
+    defaultNS: 'namespace'
     resources: GeneratedResources
-      & { 'translation': FlatGeneratedResources<GeneratedResources, 'namespace'> }
-      & { 'translation': FlatGeneratedResources<GeneratedResources, 'translation'> }
+      & { 'namespace': FlatGeneratedResources<GeneratedResources, 'namespace'> }
+      & { 'namespace': FlatGeneratedResources<GeneratedResources, 'translation'> }
   }
 }

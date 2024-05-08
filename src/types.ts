@@ -2,8 +2,6 @@ import type { LogLevel } from 'vite';
 
 export type IncludePattern = '**/*.json' | '**/*.yml' | '**/*.yaml';
 
-export type ResourceBundle = { [key: string]: string | object };
-
 export type I18NextTypedDtsOptions = {
   expand: {
     arrays: boolean;
@@ -53,6 +51,12 @@ export type I18NextTypedLoaderOptions = {
    * @default './src/types/i18next.d.ts'
    */
   dtsOutputFile?: string;
+
+  /**
+   * Output file destination for the generated virtual module types.
+   * @default './src/types/i18next-virtual.d.ts'
+   */
+  virtualModuleDtsOutputFile?: string;
 
   /**
    * Options for generating the type definitions.

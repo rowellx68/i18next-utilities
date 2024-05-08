@@ -22,15 +22,16 @@ yarn add -D vite-plugin-typed-i18next-loader
 
 ## Options
 
-| Name                  | Type                                                                                      | Default                                                                       | Description                                                |
-| --------------------- | ----------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------- | ---------------------------------------------------------- |
-| `defaultLocale`       | `string`                                                                                  | `'en'`                                                                        | The default locale the plugin will generate the type from. |
-| `defaultNamespace`    | `string`                                                                                  | `'translation'`                                                               | The default i18next namespace the plugin will use.         |
-| `include`             | `('**/*.json' \| '**/*.yml' \| '**/*.yaml')[]`                                            | `['**/*.json', '**/*.yml', '**/*.yaml']`                                      | Glob patterns of files to include for bundling.            |
-| `namespaceResolution` | `basename`, `relativePath`                                                                | none                                                                          | Namespace resolution strategy.                             |
-| `dtsOutputFile`       | `string`                                                                                  | `'./src/types/i18next.d.ts'`                                                  | Output file name and path.                                 |
-| `paths`               | `string[]`                                                                                | `[]`                                                                          | Locale top-level directory paths.                          |
-| `dts`                 | `{ expand: { arrays: boolean, contexts: boolean, ordinals: boolean, plurals: boolean } }` | `{ expand: { arrays: true, contexts: true, ordinals: true, plurals: true } }` | DTS generation options.                                    |
+| Name                         | Type                                                                                      | Default                                                                       | Description                                                     |
+| ---------------------------- | ----------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------- | --------------------------------------------------------------- |
+| `defaultLocale`              | `string`                                                                                  | `'en'`                                                                        | The default locale the plugin will generate the type from.      |
+| `defaultNamespace`           | `string`                                                                                  | `'translation'`                                                               | The default i18next namespace the plugin will use.              |
+| `include`                    | `('**/*.json' \| '**/*.yml' \| '**/*.yaml')[]`                                            | `['**/*.json', '**/*.yml', '**/*.yaml']`                                      | Glob patterns of files to include for bundling.                 |
+| `namespaceResolution`        | `basename`, `relativePath`                                                                | none                                                                          | Namespace resolution strategy.                                  |
+| `dtsOutputFile`              | `string`                                                                                  | `'./src/types/i18next.d.ts'`                                                  | Output file destination for the generated types.                |
+| `virtualModuleDtsOutputFile` | `string`                                                                                  | `'./src/types/i18next-virtual.d.ts'`                                          | Output file destination for the generated virtual module types. |
+| `paths`                      | `string[]`                                                                                | `[]`                                                                          | Locale top-level directory paths.                               |
+| `dts`                        | `{ expand: { arrays: boolean, contexts: boolean, ordinals: boolean, plurals: boolean } }` | `{ expand: { arrays: true, contexts: true, ordinals: true, plurals: true } }` | DTS generation options.                                         |
 
 ## Usage with Vite
 
@@ -46,6 +47,7 @@ export default defineConfig({
       paths: ['./src/locales/'],
       namespaceResolution: 'basename',
       dtsOutputFile: './src/types/i18next.d.ts',
+      virtualModuleDtsOutputFile: './src/types/i18next-virtual.d.ts',
     }),
   ],
 });

@@ -18,6 +18,8 @@ describe('vite-plugin-typed-i18next-loader', () => {
           namespaceResolution: 'basename',
           defaultLocale: 'en-GB',
           dtsOutputFile: './src/__tests__/__fixtures__/types/i18next.d.ts',
+          virtualModuleDtsOutputFile:
+            './src/__tests__/__fixtures__/types/i18next-virtual.d.ts',
           paths: ['./src/__tests__/__fixtures__/locales/'],
           dts: {
             expand: {
@@ -35,9 +37,13 @@ describe('vite-plugin-typed-i18next-loader', () => {
     const dts = fs.readFileSync(
       './src/__tests__/__fixtures__/types/i18next.d.ts',
     );
+    const virtualDts = fs.readFileSync(
+      './src/__tests__/__fixtures__/types/i18next-virtual.d.ts',
+    );
 
     expect(output.code).toMatchSnapshot();
     expect(dts.toString()).toMatchSnapshot();
+    expect(virtualDts.toString()).toMatchSnapshot();
   });
 
   it('should generate type definitions with expanded dts', async () => {
@@ -53,8 +59,11 @@ describe('vite-plugin-typed-i18next-loader', () => {
         plugin({
           namespaceResolution: 'basename',
           defaultLocale: 'en-GB',
+          defaultNamespace: 'namespace',
           dtsOutputFile:
             './src/__tests__/__fixtures__/types/i18next-expanded.d.ts',
+          virtualModuleDtsOutputFile:
+            './src/__tests__/__fixtures__/types/i18next-virtual-expanded.d.ts',
           paths: ['./src/__tests__/__fixtures__/locales/'],
         }),
       ],
@@ -64,8 +73,12 @@ describe('vite-plugin-typed-i18next-loader', () => {
     const dts = fs.readFileSync(
       './src/__tests__/__fixtures__/types/i18next-expanded.d.ts',
     );
+    const virtualDts = fs.readFileSync(
+      './src/__tests__/__fixtures__/types/i18next-virtual-expanded.d.ts',
+    );
 
     expect(output.code).toMatchSnapshot();
     expect(dts.toString()).toMatchSnapshot();
+    expect(virtualDts.toString()).toMatchSnapshot();
   });
 });
