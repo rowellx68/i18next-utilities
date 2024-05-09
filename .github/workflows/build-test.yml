@@ -1,18 +1,13 @@
-name: Publish
+name: Built and test
 
 on:
-  push:
+  pull_request:
     branches:
       - main
 
 jobs:
-  publish:
+  build_and_test:
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
-      packages: write
-      pull-requests: write
-      id-token: write
     steps:
       - uses: actions/checkout@v4
 
@@ -36,12 +31,3 @@ jobs:
 
       - name: Build
         run: pnpm build
-
-      - uses: changesets/action@v1
-        id: changesets
-        with:
-          title: 'Version packages'
-          commit: 'chore: version packages'
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
