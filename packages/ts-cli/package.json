@@ -1,7 +1,7 @@
 {
   "name": "i18next-utilities-ts-cli",
   "version": "0.0.0",
-  "description": "",
+  "description": "Generate i18next type definitions from your resource files.",
   "main": "dist/index.js",
   "type": "module",
   "publishConfig": {
@@ -12,6 +12,7 @@
     "i18next-ts": "dist/index.js"
   },
   "scripts": {
+    "test": "vitest run",
     "format": "prettier --write .",
     "build": "tsup",
     "dev": "tsup --watch"
