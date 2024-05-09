@@ -1,6 +1,6 @@
 {
   "name": "i18next-utilities-core",
-  "version": "1.0.0",
+  "version": "0.0.0",
   "description": "",
   "main": "dist/index.cjs",
   "module": "dist/index.js",
