@@ -7,7 +7,7 @@
     "build": "pnpm --filter i18next-utilities-* --filter *-plugin-* build",
     "test": "pnpm --filter i18next-utilities-* --filter *-plugin-* test",
     "format": "pnpm --filter i18next-utilities-* --filter *-plugin-* format",
-    "changeset": "pnpm dlx changeset-conventional-commits"
+    "ci:changeset": "pnpm dlx changeset-conventional-commits"
   },
   "keywords": [],
   "author": "Rowell Heria",
