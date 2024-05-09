@@ -1,0 +1,17 @@
+{
+  "name": "i18next-utilities",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "pnpm --filter i18next-utilities-* --filter *-plugin-* build",
+    "test": "pnpm --filter i18next-utilities-* --filter *-plugin-* test",
+    "format": "pnpm --filter i18next-utilities-* --filter *-plugin-* format"
+  },
+  "keywords": [],
+  "author": "Rowell Heria",
+  "license": "MIT",
+  "dependencies": {
+    "@changesets/cli": "^2.27.1"
+  }
+}
