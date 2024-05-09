@@ -7,18 +7,20 @@ import {
   parseResourceFiles,
 } from 'i18next-utilities-core';
 import fs from 'fs';
+import packageJson from '../package.json';
 
 const { input, output, glob, namespaceResolution, defaultNamespace } = yargs(
   hideBin(process.argv)
 )
-  .scriptName('i18next-util-ts-cli')
+  .scriptName(Object.keys(packageJson.bin)[0])
+  .version(packageJson.version)
   .usage('Usage: $0 -i [input] -o [output]')
   .options({
     input: {
       array: true,
       string: true,
       alias: 'i',
-      description: 'The input file or directory where for the locales.',
+      description: 'The input directory for the default locale.',
       required: true,
     },
     output: {
