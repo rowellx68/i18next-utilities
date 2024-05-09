@@ -1,290 +1,43 @@
-import fs from 'node:fs';
-import path from 'node:path';
-import YAML from 'yaml';
-import { flatten } from 'flat';
-import { merge } from 'ts-deepmerge';
-import { setProperty } from 'dot-prop';
-import fast from 'fast-glob';
-import { createLogger, Plugin, Logger } from 'vite';
-import {
-  I18NextTypedDtsOptions,
-  I18NextTypedLoaderOptions,
-  IncludePattern,
-} from './types';
+import { createLogger, type Plugin } from 'vite';
+import fs from 'fs';
 import type { Resource, ResourceLanguage } from 'i18next';
+import {
+  generateModuleTypeDefinition,
+  generateResourceTypeDefinition,
+  parseResourceFiles,
+} from 'i18next-utilities-core';
+import type { I18NextTypedLoaderOptions } from './types';
 
 export type { I18NextTypedLoaderOptions };
 
 const virtualModuleId = 'virtual:i18next-typed-loader';
 const resolvedVirtualModuleId = '\0' + virtualModuleId;
 
-const defaultIncludes: IncludePattern[] = [
-  '**/*.json',
-  '**/*.yml',
-  '**/*.yaml',
-];
-
-const allowedExtensions = ['.json', '.yml', '.yaml'];
-
-const pluralSuffixes = ['_zero', '_one', '_two', '_few', '_many', '_other'];
-const ordinalSuffixes = [
-  '_ordinal_zero',
-  '_ordinal_one',
-  '_ordinal_two',
-  '_ordinal_few',
-  '_ordinal_many',
-  '_ordinal_other',
-];
-
-const assertExistence = (paths: string[]): void => {
-  for (const p of paths) {
-    if (!fs.existsSync(p)) {
-      throw new Error(`Path does not exist: ${p}`);
-    }
-  }
-};
-
-const findAllFiles = (globs: string | string[], cwd: string): string[] => {
-  const globArray = Array.isArray(globs) ? globs : [globs];
-
-  return globArray
-    .map((g) => fast.globSync(g, { cwd }))
-    .reduce((acc, val) => acc.concat(val), []);
-};
-
-const enumerateLanguages = (directory: string): string[] =>
-  fs
-    .readdirSync(directory)
-    .filter((f) => fs.statSync(path.join(directory, f)).isDirectory());
-
-const resolvePaths = (paths: string[], cwd: string): string[] =>
-  paths.map((p) => (path.isAbsolute(p) ? p : path.resolve(cwd, p)));
-
-const loadContent = (options: I18NextTypedLoaderOptions, logger: Logger) => {
-  const directories = resolvePaths(options.paths, process.cwd());
-  const watchedFiles: string[] = [];
-
-  assertExistence(directories);
-
-  const uniqueIncludes = Array.from(
-    new Set(options.include ?? defaultIncludes),
-  );
-
-  if (options.paths.length === 0) {
-    logger.warn('No paths to search for files.');
-  }
-
-  if (uniqueIncludes.length === 0) {
-    logger.warn('No includes patterns specified.');
-  }
-
-  let allLanguages: Set<string> = new Set();
-  let appResourceBundle: Resource = {};
-
-  for (const directory of directories) {
-    const languages = enumerateLanguages(directory);
-    allLanguages = new Set([...allLanguages, ...languages]);
-
-    for (const language of languages) {
-      const resourceBundle: Resource = {};
-      resourceBundle[language] = {};
-
-      const languageDirectory = path.join(directory, language);
-      const files = findAllFiles(uniqueIncludes, languageDirectory);
-
-      for (const file of files) {
-        const fullPath = path.resolve(directory, language, file);
-        const extension = path.extname(file);
-
-        if (!allowedExtensions.includes(extension)) {
-          logger.warn(`Unsupported file: ${file}`);
-          continue;
-        }
-
-        watchedFiles.push(fullPath);
-
-        const fileContent = fs.readFileSync(fullPath, 'utf8');
-
-        const content =
-          extension === '.json'
-            ? JSON.parse(String(fileContent))
-            : YAML.parse(String(fileContent));
-
-        if (options.namespaceResolution) {
-          let namespaceFilePath = file;
-
-          if (options.namespaceResolution === 'basename') {
-            namespaceFilePath = path.basename(file);
-          } else if (options.namespaceResolution === 'relativePath') {
-            namespaceFilePath = path.relative(
-              path.join(directory, language),
-              file,
-            );
-          }
-
-          const nsparts = namespaceFilePath
-            .replace(extension, '')
-            .split(path.sep)
-            .filter((part) => part !== '' && part !== '..');
-
-          const namespace = [language].concat(nsparts).join('.');
-
-          setProperty(resourceBundle, namespace, content);
-        } else {
-          resourceBundle[language] = content;
-        }
-
-        appResourceBundle = merge(appResourceBundle, resourceBundle);
-      }
-    }
-  }
-
-  const defaultBundle = appResourceBundle[options.defaultLocale || 'en'];
-
-  return { watchedFiles, bundle: appResourceBundle, defaultBundle };
-};
-
-const generateResourceTypeDefinition = (
-  resource: ResourceLanguage,
+const generateAndWriteDefinitions = (
+  defaultBundle: ResourceLanguage,
+  bundle: Resource,
   options: I18NextTypedLoaderOptions,
-) => {
-  const namespaces = Object.keys(resource);
-
-  const defaultNS = options.defaultNamespace || 'translation';
-  const dtsOptions: I18NextTypedDtsOptions = Object.assign(
-    {
-      expand: {
-        arrays: true,
-        contexts: true,
-        ordinals: true,
-        plurals: true,
-      },
-    },
-    options.dts || {},
+): void => {
+  const resourceDefinition = generateResourceTypeDefinition(
+    defaultBundle,
+    options,
+  );
+  const moduleDefinition = generateModuleTypeDefinition(
+    virtualModuleId,
+    Object.keys(bundle),
   );
 
-  const flatResources: Record<string, string[]> = {};
+  const header = `/**
+ * WARNING: This file is generated by vite-plugin-typed-i18next-loader. Do not modify it manually.
+ */\n\n`;
 
-  for (const ns of namespaces) {
-    const flattened = flatten(resource[ns], {
-      safe: !dtsOptions.expand.arrays,
-    }) as object;
-    const allKeys = Object.keys(flattened);
-
-    const keysWithoutPluralsArrays = allKeys
-      .filter(
-        (k) =>
-          dtsOptions.expand.ordinals ||
-          !ordinalSuffixes.some((s) => k.endsWith(s)),
-      )
-      .filter(
-        (k) =>
-          dtsOptions.expand.plurals ||
-          !pluralSuffixes.some((s) => k.endsWith(s)),
-      )
-      .filter((k) => dtsOptions.expand.contexts || !k.includes('_'))
-      .filter((k) => dtsOptions.expand.arrays || !k.match(/\.\d+$/));
-
-    const keysWithOrdinals = allKeys
-      .filter((k) => ordinalSuffixes.some((s) => k.endsWith(s)))
-      .map((k) => k.replace(/_ordinal_.+$/, ''));
-
-    const keysWithPlurals = allKeys
-      .filter((k) => !ordinalSuffixes.some((s) => k.endsWith(s)))
-      .filter((k) => pluralSuffixes.some((s) => k.endsWith(s)))
-      .map((k) => k.replace(/_zero|_one|_two|_few|_many|_other$/, ''));
-
-    const keysWithArrays = allKeys
-      .filter((k) => k.match(/\.\d+$/))
-      .map((k) => k.replace(/\.\d+$/, ''));
-
-    const keysWithContexts = allKeys
-      .filter((k) => k.includes('_'))
-      .map((k) => k.replace(/_.*$/, ''));
-
-    const keys = keysWithoutPluralsArrays
-      .concat(
-        keysWithOrdinals,
-        keysWithPlurals,
-        keysWithArrays,
-        keysWithContexts,
-      )
-      .filter((k) => dtsOptions.expand.contexts || !k.includes('_'))
-      .sort((a, b) => a.localeCompare(b, undefined, { numeric: true }));
-
-    flatResources[ns] = Array.from(new Set(keys));
-  }
-
-  const definition = `// WARNING: This file is auto-generated by vite-plugin-typed-i18next-loader. Do not edit it manually.
-
-import 'i18next'
-
-type GeneratedResources = {
-  ${namespaces
-    .map(
-      (ns) => `'${ns}': {
-    ${flatResources[ns].map((key) => `'${key}': string`).join('\n    ')}
-  }`,
-    )
-    .join('\n  ')}
-}
-
-type FlatGeneratedResources<TResource, NS extends keyof TResource> = {
-  [Property in keyof TResource[NS] as \`\${NS & string}:\${Property & string}\`]: TResource[NS][Property]
-}
-
-declare module 'i18next' {
-  interface CustomTypeOptions {
-    defaultNS: '${defaultNS}'
-    resources: GeneratedResources
-      ${namespaces
-        .map(
-          (ns) =>
-            `& { '${defaultNS}': FlatGeneratedResources<GeneratedResources, '${ns}'> }`,
-        )
-        .join('\n      ')}
-  }
-}
-`;
-
-  fs.writeFile(
+  fs.writeFileSync(
     options.dtsOutputFile || './src/types/i18next.d.ts',
-    definition,
-    'utf-8',
-    (err) => {
-      if (err) {
-        throw err;
-      }
-    },
+    header + resourceDefinition,
   );
-};
-
-const generateModuleTypeDefinition = (
-  languages: string[],
-  options: I18NextTypedLoaderOptions,
-) => {
-  const definition = `// WARNING: This file is auto-generated by vite-plugin-typed-i18next-loader. Do not edit it manually.
-
-import { CustomTypeOptions } from 'i18next'
-
-declare module 'virtual:i18next-typed-loader' {
-  const resources: {
-    ${languages.map((lang) => `'${lang}': CustomTypeOptions['resources']`).join('\n    ')}
-  }
-
-  export default resources
-}
-`;
-
-  fs.writeFile(
+  fs.writeFileSync(
     options.virtualModuleDtsOutputFile || './src/types/i18next-virtual.d.ts',
-    definition,
-    'utf-8',
-    (err) => {
-      if (err) {
-        throw err;
-      }
-    },
+    header + moduleDefinition,
   );
 };
 
@@ -300,16 +53,15 @@ const factory = (options: I18NextTypedLoaderOptions): Plugin => {
     name: 'vite-plugin-typed-i18next-loader',
     resolveId(id) {
       if (id === virtualModuleId) {
-        const { watchedFiles, bundle, defaultBundle } = loadContent(
+        const { files, bundle, defaultBundle } = parseResourceFiles(
           options,
           logger,
         );
 
-        _watchedFiles = watchedFiles;
+        _watchedFiles = files;
         _bundle = bundle;
 
-        generateResourceTypeDefinition(defaultBundle, options);
-        generateModuleTypeDefinition(Object.keys(bundle), options);
+        generateAndWriteDefinitions(defaultBundle, bundle, options);
 
         logger.info(
           `Type definitions generated for default locale: ${options.defaultLocale || 'en'}`,
@@ -342,16 +94,15 @@ const factory = (options: I18NextTypedLoaderOptions): Plugin => {
       const module = server.moduleGraph.getModuleById(resolvedVirtualModuleId);
 
       if (module) {
-        const { bundle, defaultBundle, watchedFiles } = loadContent(
+        const { bundle, defaultBundle, files } = parseResourceFiles(
           options,
           logger,
         );
 
-        _watchedFiles = watchedFiles;
+        _watchedFiles = files;
         _bundle = bundle;
 
-        generateResourceTypeDefinition(defaultBundle, options);
-        generateModuleTypeDefinition(Object.keys(bundle), options);
+        generateAndWriteDefinitions(defaultBundle, bundle, options);
 
         server.moduleGraph.invalidateModule(module);
       }
