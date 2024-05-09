@@ -1,0 +1,145 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`parseResourceFiles > should parse all resource files with basename ns resolution 1`] = `
+{
+  "en": {
+    "translations": {
+      "app": {
+        "name": "My App",
+      },
+    },
+  },
+  "en-GB": {
+    "other": {
+      "dashboard": {
+        "title": "Dashboard",
+      },
+    },
+    "translations": {
+      "app": {
+        "description": "This is a test app",
+      },
+    },
+  },
+}
+`;
+
+exports[`parseResourceFiles > should parse all resource files with basename ns resolution 2`] = `
+{
+  "translations": {
+    "app": {
+      "name": "My App",
+    },
+  },
+}
+`;
+
+exports[`parseResourceFiles > should parse all resource files with relativePath ns resolution 1`] = `
+{
+  "en": {
+    "translations": {
+      "app": {
+        "name": "My App",
+      },
+    },
+  },
+  "en-GB": {
+    "other": {
+      "dashboard": {
+        "title": "Dashboard",
+      },
+    },
+    "translations": {
+      "app": {
+        "description": "This is a test app",
+      },
+    },
+  },
+}
+`;
+
+exports[`parseResourceFiles > should parse all resource files with relativePath ns resolution 2`] = `
+{
+  "translations": {
+    "app": {
+      "name": "My App",
+    },
+  },
+}
+`;
+
+exports[`parseResourceFiles > should parse all resource files with undefined ns resolution 1`] = `
+{
+  "en": {
+    "app": {
+      "name": "My App",
+    },
+  },
+  "en-GB": {
+    "app": {
+      "description": "This is a test app",
+    },
+    "dashboard": {
+      "title": "Dashboard",
+    },
+  },
+}
+`;
+
+exports[`parseResourceFiles > should parse all resource files with undefined ns resolution 2`] = `
+{
+  "app": {
+    "name": "My App",
+  },
+}
+`;
+
+exports[`parseResourceFiles > should parse resource files for pattern **/*.json 1`] = `
+{
+  "en": {
+    "translations": {
+      "app": {
+        "name": "My App",
+      },
+    },
+  },
+}
+`;
+
+exports[`parseResourceFiles > should parse resource files for pattern **/*.json 2`] = `
+{
+  "translations": {
+    "app": {
+      "name": "My App",
+    },
+  },
+}
+`;
+
+exports[`parseResourceFiles > should parse resource files for pattern **/*.yaml 1`] = `
+{
+  "en-GB": {
+    "other": {
+      "dashboard": {
+        "title": "Dashboard",
+      },
+    },
+  },
+}
+`;
+
+exports[`parseResourceFiles > should parse resource files for pattern **/*.yaml 2`] = `undefined`;
+
+exports[`parseResourceFiles > should parse resource files for pattern **/*.yml 1`] = `
+{
+  "en-GB": {
+    "translations": {
+      "app": {
+        "description": "This is a test app",
+      },
+    },
+  },
+}
+`;
+
+exports[`parseResourceFiles > should parse resource files for pattern **/*.yml 2`] = `undefined`;
