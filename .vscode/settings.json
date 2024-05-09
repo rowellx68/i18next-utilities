@@ -1,0 +1,7 @@
+{
+  "conventionalCommits.scopes": [
+    "core",
+    "cli",
+    "vite-plugin"
+  ]
+}
