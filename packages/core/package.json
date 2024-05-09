@@ -23,7 +23,8 @@
   "scripts": {
     "test": "vitest run",
     "format": "prettier --write .",
-    "build": "tsup"
+    "build": "tsup",
+    "dev": "tsup --watch"
   },
   "keywords": [
     "i18next",
