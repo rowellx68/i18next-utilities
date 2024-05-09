@@ -22,12 +22,7 @@ describe('vite-plugin-typed-i18next-loader', () => {
             './src/__tests__/__fixtures__/types/i18next-virtual.d.ts',
           paths: ['./src/__tests__/__fixtures__/locales/'],
           dts: {
-            expand: {
-              arrays: false,
-              contexts: false,
-              ordinals: false,
-              plurals: false,
-            },
+            expand: true,
           },
         }),
       ],
