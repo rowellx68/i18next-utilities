@@ -11,10 +11,10 @@
     "provenance": true
   },
   "scripts": {
-    "build": "tsup-node",
-    "dev": "tsup --watch",
     "test": "vitest run",
-    "format": "prettier --write ."
+    "format": "prettier --write .",
+    "build": "tsup",
+    "dev": "tsup --watch"
   },
   "exports": {
     ".": {
