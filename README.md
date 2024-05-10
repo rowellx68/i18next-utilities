@@ -9,9 +9,9 @@ The bulk of the functionality is provided by the `i18next-utilities-core` packag
 
 ## Packages
 
-| Package | Version | |
-| --- | --- | --- |
-| [i18next-utilities-core](https://www.npmjs.com/package/i18next-utilities-core) | ![Version](https://img.shields.io/github/package-json/v/rowellx68/i18next-utilities-core?style=flat-square) | [README](./packages/core/README.md) |
-| [i18next-utilities-ts-cli](https://www.npmjs.com/package/i18next-utilities-ts-cli) | ![Version](https://img.shields.io/github/package-json/v/rowellx68/i18next-utilities-ts-cli?style=flat-square) | [README](./packages/ts-cli/README.md) |
-| [esbuild-plugin-i18next-loader](https://www.npmjs.com/package/esbuild-plugin-i18next-loader) | ![Version](https://img.shields.io/github/package-json/v/rowellx68/esbuild-plugin-i18next-loader?style=flat-square) | [README](./packages/esbuild-plugin/README.md) |
-| [vite-plugin-typed-i18next-loader](https://www.npmjs.com/package/vite-plugin-typed-i18next-loader) | ![Version](https://img.shields.io/github/package-json/v/rowellx68/vite-plugin-typed-i18next-loader?style=flat-square) | [README](./packages/vite-plugin/README.md) |
+| Package                                                                                            | Version                                                                                     |                                               |
+| -------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------- | --------------------------------------------- |
+| [i18next-utilities-core](https://www.npmjs.com/package/i18next-utilities-core)                     | ![Version](https://img.shields.io/npm/v/i18next-utilities-core?style=flat-square)           | [README](./packages/core/README.md)           |
+| [i18next-utilities-ts-cli](https://www.npmjs.com/package/i18next-utilities-ts-cli)                 | ![Version](https://img.shields.io/npm/v/i18next-utilities-ts-cli?style=flat-square)         | [README](./packages/ts-cli/README.md)         |
+| [esbuild-plugin-i18next-loader](https://www.npmjs.com/package/esbuild-plugin-i18next-loader)       | ![Version](https://img.shields.io/npm/v/esbuild-plugin-i18next-loader?style=flat-square)    | [README](./packages/esbuild-plugin/README.md) |
+| [vite-plugin-typed-i18next-loader](https://www.npmjs.com/package/vite-plugin-typed-i18next-loader) | ![Version](https://img.shields.io/npm/v/vite-plugin-typed-i18next-loader?style=flat-square) | [README](./packages/vite-plugin/README.md)    |

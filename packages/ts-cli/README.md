@@ -1,5 +1,5 @@
 ![MIT](https://img.shields.io/badge/License-MIT-green?style=flat-square)
-![Version](https://img.shields.io/github/package-json/v/rowellx68/i18next-utilities-core?style=flat-square)
+![Version](https://img.shields.io/npm/v/i18next-utilities-ts-cli?style=flat-square)
 ![CI](https://img.shields.io/github/actions/workflow/status/rowellx68/i18next-utilities/publish.yml?style=flat-square)
 
 # `i18next-utilities-ts-cli`
