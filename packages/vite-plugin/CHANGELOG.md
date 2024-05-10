@@ -1,5 +1,26 @@
 # Changelog
 
+## 2.0.0
+
+### Major Changes
+
+- [`08955e2`](https://github.com/rowellx68/i18next-utilities/commit/08955e27cc9b7ecf31e7c62ca14bf2a512b9a582) Thanks [@rowellx68](https://github.com/rowellx68)! - feat(vite-plugin): update plugin to use core package
+
+  BREAKING CHANGE: This commit changes the shape of the dts option
+
+### Minor Changes
+
+- [`08955e2`](https://github.com/rowellx68/i18next-utilities/commit/08955e27cc9b7ecf31e7c62ca14bf2a512b9a582) Thanks [@rowellx68](https://github.com/rowellx68)! - feat(vite-plugin): update readme
+
+### Patch Changes
+
+- [`08955e2`](https://github.com/rowellx68/i18next-utilities/commit/08955e27cc9b7ecf31e7c62ca14bf2a512b9a582) Thanks [@rowellx68](https://github.com/rowellx68)! - test(vite-plugin): update test paths
+
+- [`08955e2`](https://github.com/rowellx68/i18next-utilities/commit/08955e27cc9b7ecf31e7c62ca14bf2a512b9a582) Thanks [@rowellx68](https://github.com/rowellx68)! - chore: move plugin source
+
+- Updated dependencies [[`08955e2`](https://github.com/rowellx68/i18next-utilities/commit/08955e27cc9b7ecf31e7c62ca14bf2a512b9a582), [`08955e2`](https://github.com/rowellx68/i18next-utilities/commit/08955e27cc9b7ecf31e7c62ca14bf2a512b9a582), [`08955e2`](https://github.com/rowellx68/i18next-utilities/commit/08955e27cc9b7ecf31e7c62ca14bf2a512b9a582), [`08955e2`](https://github.com/rowellx68/i18next-utilities/commit/08955e27cc9b7ecf31e7c62ca14bf2a512b9a582)]:
+  - i18next-utilities-core@0.1.0
+
 ## [1.5.0](https://github.com/rowellx68/vite-plugin-typed-i18next-loader/compare/1.4.1...1.5.0) (2024-05-08)
 
 ### Features
