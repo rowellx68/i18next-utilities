@@ -1,4 +1,5 @@
 import { describe, it, expect, vi } from 'vitest';
+import path from 'path';
 import { parseResourceFiles } from '../parse-resource-file';
 import { IncludePattern } from '../types';
 
@@ -18,7 +19,7 @@ describe('parseResourceFiles', () => {
 
       const { files, defaultBundle, bundle } = parseResourceFiles(
         {
-          paths: ['./src/__tests__/__fixtures__/locales'],
+          paths: [path.resolve(__dirname, '__fixtures__/locales')],
           namespaceResolution: namespaceResolution,
         },
         logger
@@ -41,7 +42,7 @@ describe('parseResourceFiles', () => {
 
       const { files, defaultBundle, bundle } = parseResourceFiles(
         {
-          paths: ['./src/__tests__/__fixtures__/locales'],
+          paths: [path.resolve(__dirname, '__fixtures__/locales')],
           namespaceResolution: 'basename',
           include: [pattern],
         },
@@ -84,7 +85,7 @@ describe('parseResourceFiles', () => {
 
     const { files, defaultBundle, bundle } = parseResourceFiles(
       {
-        paths: ['./src/__tests__/__fixtures__/locales'],
+        paths: [path.resolve(__dirname, '__fixtures__/locales')],
         namespaceResolution: 'basename',
         include: [],
       },
