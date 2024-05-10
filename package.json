@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "build": "pnpm --filter i18next-utilities-* --filter *-plugin-* build",
-    "test": "pnpm vitest",
+    "test": "pnpm vitest run",
     "format": "pnpm --filter i18next-utilities-* --filter *-plugin-* format",
     "ci:changeset": "pnpm dlx changeset-conventional-commits"
   },
