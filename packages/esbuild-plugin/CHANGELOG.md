@@ -1,5 +1,16 @@
 # esbuild-plugin-i18next-loader
 
+## 1.1.0
+
+### Minor Changes
+
+- [`08955e2`](https://github.com/rowellx68/i18next-utilities/commit/08955e27cc9b7ecf31e7c62ca14bf2a512b9a582) Thanks [@rowellx68](https://github.com/rowellx68)! - feat(esbuild-plugin): add esbuild plugin
+
+### Patch Changes
+
+- Updated dependencies [[`08955e2`](https://github.com/rowellx68/i18next-utilities/commit/08955e27cc9b7ecf31e7c62ca14bf2a512b9a582), [`08955e2`](https://github.com/rowellx68/i18next-utilities/commit/08955e27cc9b7ecf31e7c62ca14bf2a512b9a582), [`08955e2`](https://github.com/rowellx68/i18next-utilities/commit/08955e27cc9b7ecf31e7c62ca14bf2a512b9a582), [`08955e2`](https://github.com/rowellx68/i18next-utilities/commit/08955e27cc9b7ecf31e7c62ca14bf2a512b9a582)]:
+  - i18next-utilities-core@0.1.0
+
 ## 1.0.3
 
 ### Patch Changes
