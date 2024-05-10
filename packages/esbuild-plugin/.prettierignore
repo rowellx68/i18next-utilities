@@ -1,0 +1,6 @@
+package.json
+node_modules
+dist
+CHANGELOG.md
+**/__fixtures__/types/*
+**/locales/en-GB/invalid.json
