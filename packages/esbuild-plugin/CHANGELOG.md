@@ -1,5 +1,20 @@
 # esbuild-plugin-i18next-loader
 
+## 1.1.0
+
+### Minor Changes
+
+- [`68949f1`](https://github.com/rowellx68/i18next-utilities/commit/68949f135e4446b0062fcb38f23acb99f1e46b97) Thanks [@rowellx68](https://github.com/rowellx68)! - feat(esbuild-plugin): add esbuild plugin
+
+### Patch Changes
+
+- [`68949f1`](https://github.com/rowellx68/i18next-utilities/commit/68949f135e4446b0062fcb38f23acb99f1e46b97) Thanks [@rowellx68](https://github.com/rowellx68)! - chore: update git repository link
+
+- [`68949f1`](https://github.com/rowellx68/i18next-utilities/commit/68949f135e4446b0062fcb38f23acb99f1e46b97) Thanks [@rowellx68](https://github.com/rowellx68)! - docs: update shield.io links
+
+- Updated dependencies [[`68949f1`](https://github.com/rowellx68/i18next-utilities/commit/68949f135e4446b0062fcb38f23acb99f1e46b97), [`68949f1`](https://github.com/rowellx68/i18next-utilities/commit/68949f135e4446b0062fcb38f23acb99f1e46b97), [`68949f1`](https://github.com/rowellx68/i18next-utilities/commit/68949f135e4446b0062fcb38f23acb99f1e46b97), [`68949f1`](https://github.com/rowellx68/i18next-utilities/commit/68949f135e4446b0062fcb38f23acb99f1e46b97), [`68949f1`](https://github.com/rowellx68/i18next-utilities/commit/68949f135e4446b0062fcb38f23acb99f1e46b97), [`68949f1`](https://github.com/rowellx68/i18next-utilities/commit/68949f135e4446b0062fcb38f23acb99f1e46b97)]:
+  - i18next-utilities-core@0.1.0
+
 ## 1.0.3
 
 ### Patch Changes

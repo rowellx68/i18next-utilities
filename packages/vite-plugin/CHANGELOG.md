@@ -1,5 +1,30 @@
 # Changelog
 
+## 2.0.0
+
+### Major Changes
+
+- [`68949f1`](https://github.com/rowellx68/i18next-utilities/commit/68949f135e4446b0062fcb38f23acb99f1e46b97) Thanks [@rowellx68](https://github.com/rowellx68)! - feat(vite-plugin): update plugin to use core package
+
+  BREAKING CHANGE: This commit changes the shape of the dts option
+
+### Minor Changes
+
+- [`68949f1`](https://github.com/rowellx68/i18next-utilities/commit/68949f135e4446b0062fcb38f23acb99f1e46b97) Thanks [@rowellx68](https://github.com/rowellx68)! - feat(vite-plugin): update readme
+
+### Patch Changes
+
+- [`68949f1`](https://github.com/rowellx68/i18next-utilities/commit/68949f135e4446b0062fcb38f23acb99f1e46b97) Thanks [@rowellx68](https://github.com/rowellx68)! - chore: update git repository link
+
+- [`68949f1`](https://github.com/rowellx68/i18next-utilities/commit/68949f135e4446b0062fcb38f23acb99f1e46b97) Thanks [@rowellx68](https://github.com/rowellx68)! - docs: update shield.io links
+
+- [`68949f1`](https://github.com/rowellx68/i18next-utilities/commit/68949f135e4446b0062fcb38f23acb99f1e46b97) Thanks [@rowellx68](https://github.com/rowellx68)! - test(vite-plugin): update test paths
+
+- [`68949f1`](https://github.com/rowellx68/i18next-utilities/commit/68949f135e4446b0062fcb38f23acb99f1e46b97) Thanks [@rowellx68](https://github.com/rowellx68)! - chore: move plugin source
+
+- Updated dependencies [[`68949f1`](https://github.com/rowellx68/i18next-utilities/commit/68949f135e4446b0062fcb38f23acb99f1e46b97), [`68949f1`](https://github.com/rowellx68/i18next-utilities/commit/68949f135e4446b0062fcb38f23acb99f1e46b97), [`68949f1`](https://github.com/rowellx68/i18next-utilities/commit/68949f135e4446b0062fcb38f23acb99f1e46b97), [`68949f1`](https://github.com/rowellx68/i18next-utilities/commit/68949f135e4446b0062fcb38f23acb99f1e46b97), [`68949f1`](https://github.com/rowellx68/i18next-utilities/commit/68949f135e4446b0062fcb38f23acb99f1e46b97), [`68949f1`](https://github.com/rowellx68/i18next-utilities/commit/68949f135e4446b0062fcb38f23acb99f1e46b97)]:
+  - i18next-utilities-core@0.1.0
+
 ## [1.5.0](https://github.com/rowellx68/vite-plugin-typed-i18next-loader/compare/1.4.1...1.5.0) (2024-05-08)
 
 ### Features
