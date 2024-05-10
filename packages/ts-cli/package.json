@@ -19,6 +19,10 @@
   "keywords": [],
   "author": "Rowell Heria",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rowellx68/i18next-utilities.git"
+  },
   "devDependencies": {
     "@types/node": "^20.12.11",
     "@types/yargs": "^17.0.32",

@@ -37,7 +37,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/rowellx68/vite-plugin-typed-i18next-loader.git"
+    "url": "git+https://github.com/rowellx68/i18next-utilities.git"
   },
   "devDependencies": {
     "@types/node": "^20.12.8",

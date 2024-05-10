@@ -33,6 +33,10 @@
   ],
   "author": "Rowell Heria",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rowellx68/i18next-utilities.git"
+  },
   "dependencies": {
     "dot-prop": "^8.0.2",
     "fast-glob": "^3.3.2",

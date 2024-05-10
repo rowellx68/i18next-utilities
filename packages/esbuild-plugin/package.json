@@ -4,10 +4,6 @@
   "description": "esbuild plugin to client bundle i18next locales.",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/rowellx68/i18next-utilities.git"
-  },
   "scripts": {
     "test": "vitest run",
     "format": "prettier --write .",
@@ -22,6 +18,10 @@
   ],
   "author": "Rowell Heria",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rowellx68/i18next-utilities.git"
+  },
   "publishConfig": {
     "access": "public",
     "provenance": true
