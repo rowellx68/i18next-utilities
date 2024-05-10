@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "build": "pnpm --filter i18next-utilities-* --filter *-plugin-* build",
-    "test": "pnpm --filter i18next-utilities-* --filter *-plugin-* test",
+    "test": "pnpm vitest",
     "format": "pnpm --filter i18next-utilities-* --filter *-plugin-* format",
     "ci:changeset": "pnpm dlx changeset-conventional-commits"
   },
@@ -14,6 +14,7 @@
   "license": "MIT",
   "devDependencies": {
     "@changesets/cli": "^2.27.1",
-    "changeset-conventional-commits": "^0.2.5"
+    "changeset-conventional-commits": "^0.2.5",
+    "vitest": "^1.6.0"
   }
 }

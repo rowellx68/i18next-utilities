@@ -2,6 +2,8 @@
   "conventionalCommits.scopes": [
     "core",
     "cli",
-    "vite-plugin"
+    "vite-plugin",
+    "changeset",
+    "esbuild-plugin"
   ]
 }
