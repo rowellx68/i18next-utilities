@@ -1,5 +1,20 @@
 # i18next-utilities-ts-cli
 
+## 1.0.0
+
+### Major Changes
+
+- [`cf25228`](https://github.com/rowellx68/i18next-utilities/commit/cf252281c77b2676aed1492510639f0ba85b05c4) Thanks [@rowellx68](https://github.com/rowellx68)! - feat(cli): add gen command
+
+  gen command added to allow for other features. Replaced yargs with commander.
+
+  BREAKING CHANGE: requires passing command name
+
+### Patch Changes
+
+- Updated dependencies [[`cf25228`](https://github.com/rowellx68/i18next-utilities/commit/cf252281c77b2676aed1492510639f0ba85b05c4)]:
+  - i18next-utilities-core@0.1.1
+
 ## 0.1.0
 
 ### Minor Changes
