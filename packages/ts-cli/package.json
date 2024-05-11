@@ -1,6 +1,6 @@
 {
   "name": "i18next-utilities-ts-cli",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Generate i18next type definitions from your resource files.",
   "main": "dist/index.js",
   "type": "module",
