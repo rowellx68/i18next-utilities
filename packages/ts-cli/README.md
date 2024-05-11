@@ -9,15 +9,16 @@ A CLI tool to generate TypeScript types for i18next based on your resource files
 ## Usage
 
 ```bash
-npx i18next-utilities-ts-cli -i ./path/to/locales/en-GB -o ./i18next.d.ts
+npx i18next-utilities-ts-cli gen -i ./path/to/locales/en-GB -o ./i18next.d.ts
 ```
 
 ## Options
 
-| Option                        | Type                           | Default                                | Description                                   |
-| ----------------------------- | ------------------------------ | -------------------------------------- | --------------------------------------------- |
-| `-i`, `--input`               | `string`                       |                                        | The input directory for the default locale.   |
-| `-o`, `--output`              | `string`                       |                                        | The output file for the generated types.      |
-| `-g`, `--glob`                | `string[]`                     | `["**/*.json","**/*.yml","**/*.yaml"]` | The glob pattern to match the resource files. |
-| `-n`, `--namespaceResolution` | `"basename"`, `"relativePath"` | `"basename"`                           | The resolution strategy for the namespace.    |
-| `-d`, `--defaultNamespace`    | `string`                       | `"translation"`                        | The default namespace for the resource files. |
+| Option                         | Type                           | Default                                | Description                                   |
+| ------------------------------ | ------------------------------ | -------------------------------------- | --------------------------------------------- |
+| `-i`, `--input`                | `string`                       |                                        | The input directory for the default locale.   |
+| `-o`, `--output`               | `string`                       |                                        | The output file for the generated types.      |
+| `-l`, `--default-locale`       | `string`                       |                                        | The default locale for the resource files.    |
+| `-g`, `--glob`                 | `string[]`                     | `["**/*.json","**/*.yml","**/*.yaml"]` | The glob pattern to match the resource files. |
+| `-n`, `--namespace-resolution` | `"basename"`, `"relativePath"` | `"basename"`                           | The resolution strategy for the namespace.    |
+| `-d`, `--default-namespace`    | `string`                       | `"translation"`                        | The default namespace for the resource files. |
