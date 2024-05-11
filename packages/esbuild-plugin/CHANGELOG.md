@@ -1,5 +1,12 @@
 # esbuild-plugin-i18next-loader
 
+## 1.1.1
+
+### Patch Changes
+
+- Updated dependencies [[`cf25228`](https://github.com/rowellx68/i18next-utilities/commit/cf252281c77b2676aed1492510639f0ba85b05c4)]:
+  - i18next-utilities-core@0.1.1
+
 ## 1.1.0
 
 ### Minor Changes
