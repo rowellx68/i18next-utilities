@@ -1,5 +1,11 @@
 # i18next-utilities-ts-cli
 
+## 1.0.1
+
+### Patch Changes
+
+- [`b0d61af`](https://github.com/rowellx68/i18next-utilities/commit/b0d61af0fd8e6b040727ba4d28501ccde91e3320) Thanks [@rowellx68](https://github.com/rowellx68)! - docs(cli): update cli readme with new options
+
 ## 1.0.0
 
 ### Major Changes
