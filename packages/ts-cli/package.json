@@ -32,7 +32,7 @@
     "typescript": "^5.4.5"
   },
   "dependencies": {
-    "yargs": "^17.7.2",
+    "commander": "^12.0.0",
     "i18next-utilities-core": "workspace:*"
   }
 }

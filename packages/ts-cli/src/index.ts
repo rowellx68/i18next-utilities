@@ -1,78 +1,104 @@
 #!/usr/bin/env node
-import yargs from 'yargs/yargs';
-import { hideBin } from 'yargs/helpers';
+import { program, createOption } from 'commander';
 import {
-  type IncludePattern,
   generateResourceTypeDefinition,
   parseResourceFiles,
 } from 'i18next-utilities-core';
 import fs from 'fs';
 import packageJson from '../package.json';
 
-const { input, output, glob, namespaceResolution, defaultNamespace } = yargs(
-  hideBin(process.argv)
-)
-  .scriptName(Object.keys(packageJson.bin)[0])
+const binName = Object.keys(packageJson.bin)[0];
+
+program
+  .name(binName)
   .version(packageJson.version)
-  .usage('Usage: $0 -i [input] -o [output]')
-  .options({
-    input: {
-      array: true,
-      string: true,
-      alias: 'i',
-      description: 'The input directory for the default locale.',
-      required: true,
-    },
-    output: {
-      string: true,
-      alias: 'o',
-      description: 'The destination for the output file.',
-      required: true,
-    },
-    glob: {
-      array: true,
-      string: true,
-      alias: 'g',
-      default: ['**/*.json', '**/*.yml', '**/*.yaml'],
-      choices: ['**/*.json', '**/*.yml', '**/*.yaml'],
-    },
-    namespaceResolution: {
-      string: true,
-      alias: 'n',
-      default: 'basename',
-      choices: ['basename', 'relativePath'],
-    },
-    defaultNamespace: {
-      string: true,
-      alias: 'd',
-      default: 'translation',
-    },
-  })
-  .coerce('glob', (glob: string[]) => glob.map((g) => g as IncludePattern))
-  .coerce(
-    'namespaceResolution',
-    (namespaceResolution: string) =>
-      namespaceResolution as 'basename' | 'relativePath'
-  )
-  .parseSync();
+  .description(packageJson.description);
 
-const loggerPrefix = '[i18next-util-ts-cli]';
+const inputOption = createOption(
+  '-i, --input <input...>',
+  'The input directory for the locales.'
+).makeOptionMandatory(true);
 
-const logger = {
-  info: (message: string) => console.log(`${loggerPrefix} ${message}`),
-  warn: (message: string) => console.warn(`${loggerPrefix} ${message}`),
-  error: (message: string) => console.error(`${loggerPrefix} ${message}`),
-};
+const outputOption = createOption(
+  '-o, --output <output>',
+  'The destination for the output file.'
+).makeOptionMandatory(true);
 
-const { defaultBundle } = parseResourceFiles(
-  { paths: input, include: glob, namespaceResolution: namespaceResolution },
-  logger
-);
+const defaultLocaleOption = createOption(
+  '-l, --default-locale <defaultLocale>',
+  'The default locale.'
+).makeOptionMandatory(true);
 
-const definition = generateResourceTypeDefinition(defaultBundle, {
-  defaultNamespace: defaultNamespace,
-});
+const globOption = createOption(
+  '-g, --glob <glob...>',
+  'The glob pattern for resource files.'
+)
+  .default(['**/*.json', '**/*.yml', '**/*.yaml'])
+  .choices(['**/*.json', '**/*.yml', '**/*.yaml']);
 
-fs.writeFileSync(output, definition, { encoding: 'utf-8' });
+const namespaceResolutionOption = createOption(
+  '-n, --namespace-resolution <namespaceResolution>',
+  'The namespace resolution strategy.'
+)
+  .default('basename')
+  .choices(['basename', 'relativePath']);
 
-logger.info('Type definition generated successfully.');
+const defaultNamespaceOption = createOption(
+  '-d, --default-namespace <defaultNamespace>',
+  'The default namespace.'
+).default('translation');
+
+program
+  .command('gen')
+  .description('Generate TypeScript type definition for i18next resources.')
+  .addOption(inputOption)
+  .addOption(outputOption)
+  .addOption(defaultLocaleOption)
+  .addOption(globOption)
+  .addOption(namespaceResolutionOption)
+  .addOption(defaultNamespaceOption)
+  .action(
+    ({
+      input,
+      output,
+      defaultLocale,
+      glob,
+      namespaceResolution,
+      defaultNamespace,
+    }) => {
+      const loggerPrefix = `[${binName}]`;
+
+      const logger = {
+        info: (message: string) => console.log(`${loggerPrefix} ${message}`),
+        warn: (message: string) => console.warn(`${loggerPrefix} ${message}`),
+        error: (message: string) => console.error(`${loggerPrefix} ${message}`),
+      };
+
+      const { defaultBundle } = parseResourceFiles(
+        {
+          paths: input,
+          include: glob,
+          defaultLocale: defaultLocale,
+          namespaceResolution: namespaceResolution,
+        },
+        logger
+      );
+
+      if (!defaultBundle) {
+        logger.warn(
+          'Attempted to generate type definition but no resources found.'
+        );
+        return;
+      }
+
+      const definition = generateResourceTypeDefinition(defaultBundle, {
+        defaultNamespace: defaultNamespace,
+      });
+
+      fs.writeFileSync(output, definition, { encoding: 'utf-8' });
+
+      logger.info('Type definition generated successfully.');
+    }
+  );
+
+program.parse();
