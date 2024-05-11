@@ -1,6 +1,6 @@
 {
   "name": "i18next-utilities-core",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "A collection of utilities that parses i18next resource files, concatenates them, and can generate TypeScript definitions for them.",
   "main": "dist/index.cjs",
   "module": "dist/index.js",
