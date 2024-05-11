@@ -1,5 +1,11 @@
 # i18next-utilities-core
 
+## 0.1.1
+
+### Patch Changes
+
+- [`cf25228`](https://github.com/rowellx68/i18next-utilities/commit/cf252281c77b2676aed1492510639f0ba85b05c4) Thanks [@rowellx68](https://github.com/rowellx68)! - chore(core): add package description
+
 ## 0.1.0
 
 ### Minor Changes
