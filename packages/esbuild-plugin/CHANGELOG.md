@@ -1,5 +1,11 @@
 # esbuild-plugin-i18next-loader
 
+## 1.1.4
+
+### Patch Changes
+
+- [`739bb06`](https://github.com/rowellx68/i18next-utilities/commit/739bb064ca39a1fa247f7f86c6d4b4fc84799995) Thanks [@rowellx68](https://github.com/rowellx68)! - fix(esbuild-plugin): plugin name now set as constants
+
 ## 1.1.3
 
 ### Patch Changes
