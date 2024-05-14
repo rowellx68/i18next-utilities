@@ -1,7 +1,8 @@
 import type { PartialMessage, Plugin } from 'esbuild';
 import { parseResourceFiles } from 'i18next-utilities-core';
-import { name as pluginName } from '../package.json';
 import type { Options } from './types';
+
+const pluginName = 'esbuild-plugin-i18next-loader';
 
 export const i18nextPlugin = (options: Options): Plugin => {
   return {
