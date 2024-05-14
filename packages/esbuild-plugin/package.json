@@ -4,8 +4,9 @@
   "description": "esbuild plugin to client bundle i18next locales.",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
+  "type": "module",
   "scripts": {
-    "test": "vitest run",
+    "test": "tsup && vitest run",
     "format": "prettier --write .",
     "build": "tsup",
     "dev": "tsup --watch"

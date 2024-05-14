@@ -2,7 +2,7 @@
 import { test, expect } from 'vitest';
 import path from 'path';
 import esbuild from 'esbuild';
-import { i18nextPlugin } from '../index';
+import { i18nextPlugin } from '../../dist/index';
 import { IncludePattern } from 'i18next-utilities-core';
 
 test.each([
