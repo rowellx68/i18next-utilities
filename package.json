@@ -4,11 +4,11 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "pnpm --filter i18next-utilities-* --filter *-plugin-* build",
-    "test": "pnpm vitest run",
-    "format": "pnpm --filter i18next-utilities-* --filter *-plugin-* format",
+    "build": "pnpm --recursive build",
+    "test": "vitest run",
+    "format": "pnpm --recursive format",
     "release": "pnpm changeset publish",
-    "ci:changeset": "pnpm dlx changeset-conventional-commits"
+    "cc:changeset": "pnpm changeset-conventional"
   },
   "keywords": [],
   "author": "Rowell Heria",
