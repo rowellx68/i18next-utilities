@@ -1,8 +1,8 @@
 import path from 'path';
 import fs from 'fs';
 import YAML from 'yaml';
-import { merge } from 'ts-deepmerge';
-import { setProperty } from 'dot-prop';
+import * as deep from 'ts-deepmerge';
+import * as prop from 'dot-prop';
 import type { Resource } from 'i18next';
 import type {
   I18NextTypedLogger,
@@ -100,12 +100,12 @@ export const parseResourceFiles = (
 
           const namespace = [language].concat(nsparts).join('.');
 
-          setProperty(resourceBundle, namespace, content);
+          prop.setProperty(resourceBundle, namespace, content);
         } else {
           resourceBundle[language] = content;
         }
 
-        appResourceBundle = merge(appResourceBundle, resourceBundle);
+        appResourceBundle = deep.merge(appResourceBundle, resourceBundle);
       }
     }
   }

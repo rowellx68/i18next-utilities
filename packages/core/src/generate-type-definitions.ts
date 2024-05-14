@@ -1,4 +1,4 @@
-import { flatten } from 'flat';
+import * as flat from 'flat';
 import type { ResourceLanguage } from 'i18next';
 import type { I18NextTypedOptions, I18NextTypedDtsOptions } from './types';
 
@@ -47,7 +47,7 @@ export const generateResourceTypeDefinition = (
   const flatResources: Record<string, string[]> = {};
 
   for (const ns of namespaces) {
-    const flattened = flatten(resource[ns], {
+    const flattened = flat.flatten(resource[ns], {
       safe: !expand,
     }) as object;
     const allKeys = Object.keys(flattened);
