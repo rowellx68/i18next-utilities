@@ -1,5 +1,14 @@
 # esbuild-plugin-i18next-loader
 
+## 1.1.3
+
+### Patch Changes
+
+- [`666448b`](https://github.com/rowellx68/i18next-utilities/commit/666448b613c48fda1fb0c2ddc81b6601cb1b3fc3) Thanks [@rowellx68](https://github.com/rowellx68)! - build(esbuild-plugin): update build output to esm
+
+- Updated dependencies [[`666448b`](https://github.com/rowellx68/i18next-utilities/commit/666448b613c48fda1fb0c2ddc81b6601cb1b3fc3)]:
+  - i18next-utilities-core@0.1.3
+
 ## 1.1.2
 
 ### Patch Changes

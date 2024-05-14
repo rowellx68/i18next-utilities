@@ -1,5 +1,12 @@
 # i18next-utilities-ts-cli
 
+## 1.0.3
+
+### Patch Changes
+
+- Updated dependencies [[`666448b`](https://github.com/rowellx68/i18next-utilities/commit/666448b613c48fda1fb0c2ddc81b6601cb1b3fc3)]:
+  - i18next-utilities-core@0.1.3
+
 ## 1.0.2
 
 ### Patch Changes
