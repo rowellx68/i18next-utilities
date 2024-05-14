@@ -1,5 +1,11 @@
 # i18next-utilities-core
 
+## 0.1.2
+
+### Patch Changes
+
+- [`896aae5`](https://github.com/rowellx68/i18next-utilities/commit/896aae5afcf026dac27b8e7bcda578f6630dc26d) Thanks [@rowellx68](https://github.com/rowellx68)! - fix(core): update import styles for dependencies
+
 ## 0.1.1
 
 ### Patch Changes
