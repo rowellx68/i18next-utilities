@@ -1,0 +1,11 @@
+{
+  "app.title": "Hello World",
+  "app.message": ["Hello", "world"],
+  "app.pages_zero": "No pages",
+  "app.pages_one": "{{count}} page",
+  "app.pages_other": "{{count}} pages",
+  "app.rank_ordinal_one": "{{count}}st",
+  "app.rank_ordinal_two": "{{count}}nd",
+  "app.rank_ordinal_few": "{{count}}rd",
+  "app.rank_ordinal_other": "{{count}}th"
+}

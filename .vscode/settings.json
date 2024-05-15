@@ -4,6 +4,7 @@
     "cli",
     "vite-plugin",
     "changeset",
-    "esbuild-plugin"
+    "esbuild-plugin",
+    "unplugin"
   ]
 }
