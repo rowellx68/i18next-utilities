@@ -1,7 +1,7 @@
 {
-  "name": "unplugin-plugin",
-  "version": "1.0.0",
-  "description": "",
+  "name": "i18next-utilities-unplugin",
+  "version": "0.0.0",
+  "description": "A collection of i18next plugins for Vite, Rollup, Webpack, Farm and esbuild",
   "main": "dist/index.js",
   "type": "module",
   "scripts": {
@@ -35,7 +35,17 @@
   "files": [
     "dist"
   ],
-  "keywords": [],
+  "keywords": [
+    "i18next",
+    "unplugin",
+    "vite",
+    "rollup",
+    "webpack",
+    "esbuild",
+    "farm",
+    "localization",
+    "internationalization"
+  ],
   "author": "Rowell Heria",
   "license": "MIT",
   "devDependencies": {
