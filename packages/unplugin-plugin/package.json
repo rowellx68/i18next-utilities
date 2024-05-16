@@ -3,7 +3,12 @@
   "version": "0.1.0",
   "description": "A collection of i18next plugins for Vite, Rollup, Webpack, Farm and esbuild",
   "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "type": "module",
+  "publishConfig": {
+    "access": "public",
+    "provenance": true
+  },
   "scripts": {
     "test": "vitest run",
     "format": "prettier --write .",
@@ -48,6 +53,10 @@
   ],
   "author": "Rowell Heria",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rowellx68/i18next-utilities.git"
+  },
   "devDependencies": {
     "@farmfe/core": "^1.1.6",
     "@types/node": "^20.12.12",
