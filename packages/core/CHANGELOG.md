@@ -1,5 +1,11 @@
 # i18next-utilities-core
 
+## 0.1.4
+
+### Patch Changes
+
+- [`2eb3aef`](https://github.com/rowellx68/i18next-utilities/commit/2eb3aef6a99e5229b5bee65083a6f2f3e75563b3) Thanks [@rowellx68](https://github.com/rowellx68)! - chore: update dependencies
+
 ## 0.1.3
 
 ### Patch Changes
