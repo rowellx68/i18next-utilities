@@ -1,6 +1,6 @@
 {
   "name": "i18next-utilities-unplugin",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "A collection of i18next plugins for Vite, Rollup, Webpack, Farm and esbuild",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
