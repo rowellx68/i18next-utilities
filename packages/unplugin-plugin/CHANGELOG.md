@@ -1,5 +1,11 @@
 # i18next-utilities-unplugin
 
+## 0.1.1
+
+### Patch Changes
+
+- [`829a4ce`](https://github.com/rowellx68/i18next-utilities/commit/829a4ce9141a87bdd766d868722ca25b50a3e9c0) Thanks [@rowellx68](https://github.com/rowellx68)! - build(unplugin): update package.json with missing properties
+
 ## 0.1.0
 
 ### Minor Changes
