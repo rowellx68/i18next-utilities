@@ -57,7 +57,7 @@ test.each([
         ),
         virtualModuleDtsOutputFile: path.resolve(
           __dirname,
-          `__fixtures__/types/i18next-virtual-basename-${index}.d.ts`
+          `__fixtures__/types/i18next-virtual-basename-${index}.d.ts`,
         ),
       }),
     ],

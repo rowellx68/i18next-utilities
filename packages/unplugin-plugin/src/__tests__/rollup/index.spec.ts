@@ -24,7 +24,7 @@ describe('i18next-typed-loader/rollup', () => {
           dts: {
             expand: true,
           },
-        })
+        }),
       ],
     });
 

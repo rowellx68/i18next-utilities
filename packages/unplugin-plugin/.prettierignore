@@ -3,3 +3,4 @@ node_modules
 dist
 CHANGELOG.md
 **/__fixtures__/types/*
+invalid.json
