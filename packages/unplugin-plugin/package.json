@@ -41,6 +41,7 @@
   "devDependencies": {
     "@farmfe/core": "^1.1.6",
     "@types/node": "^20.12.12",
+    "esbuild": "^0.20.2",
     "i18next": "^23.11.4",
     "prettier": "^3.2.5",
     "rollup": "^4.17.2",
@@ -57,9 +58,27 @@
   },
   "peerDependencies": {
     "@farmfe/core": "^1.1.6",
+    "esbuild": "^0.20.2",
     "i18next": "^23.11.4",
     "rollup": "^4.17.2",
     "vite": "^5.2.11",
     "webpack": "^5.91.0"
+  },
+  "peerDependenciesMeta": {
+    "@farmfe/core": {
+      "optional": true
+    },
+    "esbuild": {
+      "optional": true
+    },
+    "rollup": {
+      "optional": true
+    },
+    "vite": {
+      "optional": true
+    },
+    "webpack": {
+      "optional": true
+    }
   }
 }

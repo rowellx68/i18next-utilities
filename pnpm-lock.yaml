@@ -135,6 +135,9 @@ importers:
       '@types/node':
         specifier: ^20.12.12
         version: 20.12.12
+      esbuild:
+        specifier: ^0.20.2
+        version: 0.20.2
       i18next:
         specifier: ^23.11.4
         version: 23.11.4
@@ -158,7 +161,7 @@ importers:
         version: 1.6.0(@types/node@20.12.12)(terser@5.31.0)
       webpack:
         specifier: ^5.91.0
-        version: 5.91.0(esbuild@0.19.12)
+        version: 5.91.0(esbuild@0.20.2)
 
   packages/vite-plugin:
     dependencies:
@@ -5483,16 +5486,16 @@ snapshots:
 
   term-size@2.2.1: {}
 
-  terser-webpack-plugin@5.3.10(esbuild@0.19.12)(webpack@5.91.0(esbuild@0.19.12)):
+  terser-webpack-plugin@5.3.10(esbuild@0.20.2)(webpack@5.91.0(esbuild@0.20.2)):
     dependencies:
       '@jridgewell/trace-mapping': 0.3.25
       jest-worker: 27.5.1
       schema-utils: 3.3.0
       serialize-javascript: 6.0.2
       terser: 5.31.0
-      webpack: 5.91.0(esbuild@0.19.12)
+      webpack: 5.91.0(esbuild@0.20.2)
     optionalDependencies:
-      esbuild: 0.19.12
+      esbuild: 0.20.2
 
   terser@5.31.0:
     dependencies:
@@ -5769,7 +5772,7 @@ snapshots:
 
   webpack-virtual-modules@0.6.1: {}
 
-  webpack@5.91.0(esbuild@0.19.12):
+  webpack@5.91.0(esbuild@0.20.2):
     dependencies:
       '@types/eslint-scope': 3.7.7
       '@types/estree': 1.0.5
@@ -5792,7 +5795,7 @@ snapshots:
       neo-async: 2.6.2
       schema-utils: 3.3.0
       tapable: 2.2.1
-      terser-webpack-plugin: 5.3.10(esbuild@0.19.12)(webpack@5.91.0(esbuild@0.19.12))
+      terser-webpack-plugin: 5.3.10(esbuild@0.20.2)(webpack@5.91.0(esbuild@0.20.2))
       watchpack: 2.4.1
       webpack-sources: 3.2.3
     transitivePeerDependencies:
